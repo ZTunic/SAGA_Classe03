@@ -1,5 +1,8 @@
 package com.saga.unipass.model.dao;
 
+import com.saga.unipass.model.beans.Utente;
+import com.saga.unipass.model.beans.Viaggio;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +16,11 @@ public class AutenticazioneDAO {
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("INSERT INTO utente VALUES (?,?,?,SHAI(?),?,?,?,?,?,?)");
-            ps.setString(1, utente.getEmail);
-            ps.setString(2, utente.getNome);
-            ps.setString(3, utente.getCognome);
-            ps.setString(4, utente.getPassword);
-            ps.setString(5, utente.getTelefono);
+            ps.setString(1, utente.getEmail());
+            ps.setString(2, utente.getNome());
+            ps.setString(3, utente.getCognome());
+            ps.setString(4, utente.getPassword());
+            ps.setString(5, utente.getTelefono());
             ps.setString(6, "passeggero");  //tipo utente
             ps.setInt(7, 0);    //numeroValutazioniPasseggero
             ps.setInt(8, 0);    //numeroValutazioniGuidatore
@@ -48,16 +51,16 @@ public class AutenticazioneDAO {
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()) {
-                doRetrieve.setEmail(rs.getString("email"));
-                doRetrieve.setNome(rs.getString("nome"));
-                doRetrieve.setCognome(rs.getString("cognome"));
-                doRetrieve.setPassword(rs.getString("passwordHash"));
-                doRetrieve.setTelefono(rs.getString("telefono"));
-                doRetrieve.setTipo(rs.getString("tipo"));
-                doRetrieve.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
-                doRetrieve.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
-                doRetrieve.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
-                doRetrieve.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
+                doRetrive.setEmail(rs.getString("email"));
+                doRetrive.setNome(rs.getString("nome"));
+                doRetrive.setCognome(rs.getString("cognome"));
+                doRetrive.setPassword(rs.getString("passwordHash"));
+                doRetrive.setTelefono(rs.getString("telefono"));
+                doRetrive.setTipo(rs.getString("tipo"));
+                doRetrive.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
+                doRetrive.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
+                doRetrive.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
+                doRetrive.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
             }
             else
                 return null;
@@ -121,7 +124,7 @@ public class AutenticazioneDAO {
             while(rs.next()) {
                 Viaggio viaggio = new Viaggio();
 
-                viaggio.setId(rs.getInt("idViaggio"));
+                viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
                 viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
                 viaggio.setPosti(rs.getInt("posti"));
@@ -146,11 +149,11 @@ public class AutenticazioneDAO {
                                                     "SET email = ? AND nome = ? AND cognome = ? AND " +
                                                     "passwordHash = SHAI(?) AND telefono = ? " +
                                                     "WHERE email = ?;");
-            ps.setString(1, utente.getEmail);
-            ps.setString(2, utente.getNome);
-            ps.setString(3, utente.getCognome);
-            ps.setString(4, utente.getPassword);
-            ps.setString(5, utente.getTelefono);
+            ps.setString(1, utente.getEmail());
+            ps.setString(2, utente.getNome());
+            ps.setString(3, utente.getCognome());
+            ps.setString(4, utente.getPassword());
+            ps.setString(5, utente.getTelefono());
             ps.setString(6, emailUtenteModifica);
 
             if (ps.executeUpdate() != 1) {
