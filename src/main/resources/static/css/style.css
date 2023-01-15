@@ -1,0 +1,85 @@
+body {font-family: 'Montserrat' !important;}
+
+/* PROPRIETA' DA RIUTILIZZARE */
+
+.spacer{height: 2px;
+		border:none;}
+.center{text-align:center !important; margin:auto !important; display:block !important;}
+
+.btn-primary{margin-left: 2% !important; margin-right: 2% !important; width: 15% !important;
+	font-weight:bold !important; background-color: #3d3e3e !important;
+	color: #ffffff !important;
+	border:2px solid #f4c305 !important;
+	line-height: 15px !important;
+	border-radius: 40px !important;
+	transition: all 0.3s ease 0s !important;	
+}
+
+.btn-primary:hover{
+	
+    background-color: #f4c305 !important; /*PER FARE OVERRIDE BISOGNA AGGIUNGERE "!important" */
+	color: #ffffff !important;
+	border:2px solid #3d3e3e !important;
+}
+
+.testo_nav{font-size:90% !important; margin-left:20px !important;}
+
+.nav-link:hover{
+	color: #f4c305 !important; /*PER FARE OVERRIDE BISOGNA AGGIUNGERE "!important" */
+}
+
+.button-icon {
+            font-weight: bold;
+            text-align: center;
+            width: 45px;
+            height: 45px;
+            line-height: 45px !important;
+            background-color: #FECC18;
+            border-radius: 100%;
+}
+
+.form-text a{
+	text-decoration:none;
+}
+
+.img-fluid{
+	margin-left:29% !important;
+	max-width: 45% !important;
+}
+
+a.list-group-item {margin-right:8px !important;font-size:80% !important; transition: all .3s ease-in-out !important; }
+
+a.list-group-item:hover {
+    color: #FECC18;
+    font-weight: bold;
+    text-shadow: 1px 1px black;
+    transition: all .3s ease-in-out;
+
+}
+
+a.list-group-item:hover > .button-icon {
+    background-color: #3d3e3e;
+    transition: background-color .3s ease-in-out;
+}
+
+/* RESPONSIVE PER MOBILE*/
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+	
+h2{font-size:100% !important;}
+.center_mob{text-align:center !important; margin:auto !important; display:block !important; }
+.btn-primary{margin-left: 5% !important; margin-right: 5% !important; width: 38% !important;}
+.img-fluid{margin-left:16% !important; max-width: 70% !important;}
+.testo_nav{font-size:90% !important; margin-left:0 !important;}
+} /* CHIUDO IL RESPONSIVE */
+
+/* RESPONSIVE PER TABLET*/
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+h2{font-size:100% !important;}
+.btn-primary{margin-left: 5% !important; margin-right: 5% !important; width: 18% !important;}
+.testo_nav{font-size:90% !important; margin-left:0 !important;}
+.center_mob{text-align:center !important; margin:auto !important; display:block !important;}
+
+} /* CHIUDO IL RESPONSIVE */
