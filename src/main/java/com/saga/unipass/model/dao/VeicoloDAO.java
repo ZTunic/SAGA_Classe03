@@ -1,9 +1,11 @@
 package com.saga.unipass.model.dao;
 
+import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Veicolo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class VeicoloDAO {
@@ -27,6 +29,39 @@ public class VeicoloDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Veicolo doRetriveByTarga(String targa){
+        Veicolo doRetrive = new Veicolo();
+
+        try(Connection connection = ConPool.getConnection()){
+            PreparedStatement ps =
+                    connection.prepareStatement("SELECT * " +
+                                                    "FROM veicolo " +
+                                                    "WHERE targa= ?;");
+
+            ps.setString(1, targa);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                doRetrive.setTarga(rs.getString("targa"));
+                doRetrive.setMarca(rs.getString("marca"));
+                doRetrive.setModello(rs.getString("modello"));
+                doRetrive.setColore(rs.getString("colore"));
+                doRetrive.setPostiDisponibili(rs.getInt("postiDisponibili"));
+
+                AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
+                Utente utente = autenticazioneDAO.doRetriveByEmail(rs.getString("proprietario"));
+            }
+            else
+                return null;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return doRetrive;
     }
 
 	public void doUpdate(String targaVeicoloModifica, Veicolo veicolo){

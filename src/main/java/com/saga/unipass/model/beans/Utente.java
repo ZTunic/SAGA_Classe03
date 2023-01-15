@@ -1,9 +1,19 @@
 package com.saga.unipass.model.beans;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+/**
+ * @author SAGA
+ *
+ * La classe "Utente" mantiene le informazione di un utente.
+ * Inoltre, la medesima classe offre dei metodi utili ad un utente.
+ *
+ */
 
 public class Utente {
     private String email;
@@ -20,13 +30,23 @@ public class Utente {
     private List<Viaggio> listaViaggiPartecipati;
     private Veicolo veicolo;
 
-    //COSTRUTTORE
-
-    public Utente(){ }
+    /**
+     * Costruttore della classe.
+     */
+    public Utente(){
+        this.tipo = "passeggero";
+        this.numeroValutazioniPasseggero = 0;
+        this.numeroValutazioniGuidatore = 0;
+        this.sommaValutazioniPasseggero = 0;
+        this.sommaValutazioniGuidatore = 0;
+        this.listaViaggiCreati = new ArrayList<>();
+        this.listaViaggiPartecipati = new ArrayList<>();
+        this.veicolo = null;
+    }
 
     public Utente(String email, String password, String nome, String cognome, String telefono) {
         this.email = email;
-        this.password = password;
+        this.setPassword(password);
         this.nome = nome;
         this.cognome = cognome;
         this.telefono = telefono;
@@ -40,8 +60,6 @@ public class Utente {
         this.veicolo = null;
     }
 
-
-    //INIZIO GETTER E SETTER
     public String getEmail() {
         return email;
     }
@@ -55,7 +73,15 @@ public class Utente {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            MessageDigest digest =
+                    MessageDigest.getInstance("SHA-1");
+            digest.reset();
+            digest.update(password.getBytes(StandardCharsets.UTF_8));
+            this.password = String.format("%040x", new BigInteger(1, digest.digest()));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getNome() {
@@ -147,7 +173,11 @@ public class Utente {
     }
 
 
-    //STORICO VIAGGI DI UN UTENTE
+    /**
+     * si effettua una fusione della <i>lista dei viaggi a cui un utente ha partecipato e la lista
+     * dei viaggi che ha creato</i>.
+     * @return  la lista che rappresenta lo "Storico viaggi" di un utente.
+     */
     public List<Viaggio> getListaViaggi(){
         ArrayList<Viaggio> listaViaggi = new ArrayList<>();
 
@@ -168,7 +198,10 @@ public class Utente {
         return listaViaggi;
     }
 
-    //MEDIA VALUTAZIONI DI UN UTENTE NEL RUOLO DI PASSEGGERO
+    /**
+     * Si calcola la medie delle valutazioni di un utente nel ruolo di <strong>passeggero</strong> di un viaggio.
+     * @return la media delle valutazioni.
+     */
     public double mediaValutazioni(){
         double media = 0;
 
@@ -178,7 +211,10 @@ public class Utente {
         return media;
     }
 
-    //MEDIA VALUTAZIONI DI UN UTENTE NEL RUOLO DI GUIDATORE
+    /**
+     * Si calcola la medie delle valutazioni di un utente nel ruolo di <strong>guidatore</strong> di un viaggio.
+     * @return la media delle valutazioni.
+     */
     public double mediaValutazioniGuida(){
         double media = 0;
 

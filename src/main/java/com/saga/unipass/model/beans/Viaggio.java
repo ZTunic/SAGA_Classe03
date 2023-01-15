@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author SAGA
+ *
+ * La classe "Viaggio" mantiene le informazione di un viaggio.
+ * Inoltre, la medesima classe offre dei metodi utili per la gestione dei viaggi.
+ *
+ */
+
 public class Viaggio {
 
     private int idViaggio;
@@ -12,14 +20,20 @@ public class Viaggio {
     private int posti;
     private double prezzo;
     private boolean prenotabile;
-    private String guidatore;
+    private Utente guidatore;
     private List<Utente> listaPasseggeri;
 
-    //COSTRUTTORE
+    /**
+     * <h2>Costruttori della classe</h2>
+     */
 
-    public Viaggio() { }
+    public Viaggio() {
+        this.prenotabile = true;
+        this.guidatore = null;
+        this.listaPasseggeri = new ArrayList<>();
+    }
 
-    public Viaggio(int idViaggio, String destinazione, Date dataOraPartenza, int posti, double prezzo, String guidatore) {
+    public Viaggio(int idViaggio, String destinazione, Date dataOraPartenza, int posti, double prezzo, Utente guidatore) {
         this.idViaggio = idViaggio;
         this.destinazione = destinazione;
         this.dataOraPartenza = dataOraPartenza;
@@ -80,11 +94,11 @@ public class Viaggio {
         this.prenotabile = prenotabile;
     }
 
-    public String getGuidatore() {
+    public Utente getGuidatore() {
         return guidatore;
     }
 
-    public void setGuidatore(String guidatore) {
+    public void setGuidatore(Utente guidatore) {
         this.guidatore = guidatore;
     }
 

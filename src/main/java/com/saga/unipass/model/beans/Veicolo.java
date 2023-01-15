@@ -1,5 +1,14 @@
 package com.saga.unipass.model.beans;
 
+
+/**
+ * @author SAGA
+ *
+ * La classe "Veicolo" mantiene le informazione di un veicolo.
+ * Inoltre, la medesima classe offre dei metodi utili per la gestione dei veicoli.
+ *
+ */
+
 public class Veicolo {
 
     private String targa;
@@ -7,13 +16,13 @@ public class Veicolo {
     private String modello;
     private String colore;
     private int postiDisponibili;
-    private String proprietario;
+    private Utente proprietario;
 
-    //COSTRUTTORE
+    public Veicolo(){
+        this.proprietario = null;
+    }
 
-    public Veicolo(){ }
-
-    public Veicolo(String targa, String marca, String modello, String colore, int postiDisponibili, String proprietario) {
+    public Veicolo(String targa, String marca, String modello, String colore, int postiDisponibili, Utente proprietario) {
         this.targa = targa;
         this.marca = marca;
         this.modello = modello;
@@ -65,11 +74,11 @@ public class Veicolo {
         this.postiDisponibili = postiDisponibili;
     }
 
-    public String getProprietario() {
+    public Utente getProprietario() {
         return proprietario;
     }
 
-    public void setProprietario(String proprietario) {
+    public void setProprietario(Utente proprietario) {
         this.proprietario = proprietario;
     }
 }

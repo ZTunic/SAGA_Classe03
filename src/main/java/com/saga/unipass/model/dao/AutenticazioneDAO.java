@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class AutenticazioneDAO {
@@ -15,7 +14,7 @@ public class AutenticazioneDAO {
     public void doSave(Utente utente){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
-                    connection.prepareStatement("INSERT INTO utente VALUES (?,?,?,SHAI(?),?,?,?,?,?,?)");
+                    connection.prepareStatement("INSERT INTO utente VALUES (?,?,?,SHA1(?),?,?,?,?,?,?)");
             ps.setString(1, utente.getEmail());
             ps.setString(2, utente.getNome());
             ps.setString(3, utente.getCognome());
@@ -34,6 +33,41 @@ public class AutenticazioneDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Utente doRetriveByEmail(String email){
+        Utente doRetrive = new Utente();
+
+        try(Connection connection = ConPool.getConnection()){
+            PreparedStatement ps =
+                    connection.prepareStatement("SELECT * " +
+                                                    "FROM utente " +
+                                                    "WHERE email= ?;");
+
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                doRetrive.setEmail(rs.getString("email"));
+                doRetrive.setNome(rs.getString("nome"));
+                doRetrive.setCognome(rs.getString("cognome"));
+                doRetrive.setPassword(rs.getString("passwordHash"));
+                doRetrive.setTelefono(rs.getString("telefono"));
+                doRetrive.setTipo(rs.getString("tipo"));
+                doRetrive.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
+                doRetrive.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
+                doRetrive.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
+                doRetrive.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
+            }
+            else
+                return null;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return doRetrive;
     }
 
     public Utente doRetriveByCredentials(String email, String password){
@@ -89,13 +123,13 @@ public class AutenticazioneDAO {
             while(rs.next()) {
                 Viaggio viaggio = new Viaggio();
 
-                viaggio.setId(rs.getInt("idViaggio"));
+                viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
                 viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(rs.getString("guidatore"));
+                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
 
                 doRetrive.add(viaggio);
             }
@@ -130,7 +164,7 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(rs.getString("guidatore"));
+                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
 
                 doRetrive.add(viaggio);
             }
