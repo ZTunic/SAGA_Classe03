@@ -32,7 +32,7 @@ public class VeicoloDAO {
     }
 
     public Veicolo doRetriveByTarga(String targa){
-        Veicolo doRetrive = new Veicolo();
+        Veicolo veicolo = new Veicolo();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -45,11 +45,11 @@ public class VeicoloDAO {
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()) {
-                doRetrive.setTarga(rs.getString("targa"));
-                doRetrive.setMarca(rs.getString("marca"));
-                doRetrive.setModello(rs.getString("modello"));
-                doRetrive.setColore(rs.getString("colore"));
-                doRetrive.setPostiDisponibili(rs.getInt("postiDisponibili"));
+                veicolo.setTarga(rs.getString("targa"));
+                veicolo.setMarca(rs.getString("marca"));
+                veicolo.setModello(rs.getString("modello"));
+                veicolo.setColore(rs.getString("colore"));
+                veicolo.setPostiDisponibili(rs.getInt("postiDisponibili"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
                 Utente utente = autenticazioneDAO.doRetriveByEmail(rs.getString("proprietario"));
@@ -61,7 +61,7 @@ public class VeicoloDAO {
             e.printStackTrace();
         }
 
-        return doRetrive;
+        return veicolo;
     }
 
 	public void doUpdate(String targaVeicoloModifica, Veicolo veicolo){

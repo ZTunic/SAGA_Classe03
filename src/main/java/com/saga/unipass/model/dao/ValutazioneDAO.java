@@ -1,12 +1,14 @@
 package com.saga.unipass.model.dao;
 
+import com.saga.unipass.model.beans.Utente;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ValutazioneDAO {
 
-    public void doValutaGuidatore(String emailGuidatore, int numValutazione, int sommaValutazioni){
+    public void doValutaGuidatore(Utente guidatore, int numValutazione, int sommaValutazioni){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE utente " +
@@ -15,7 +17,7 @@ public class ValutazioneDAO {
 
             ps.setInt(1, numValutazione);
             ps.setInt(2, sommaValutazioni);
-            ps.setString(3, emailGuidatore);
+            ps.setString(3, guidatore.getEmail());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> UPDATE valutazione utente guidatore.");
@@ -26,7 +28,7 @@ public class ValutazioneDAO {
         }
     }
 
-	public void doValutaPasseggero(String emailPasseggero, int numValutazione, int sommaValutazioni){
+	public void doValutaPasseggero(Utente passeggero, int numValutazione, int sommaValutazioni){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE utente " +
@@ -35,7 +37,7 @@ public class ValutazioneDAO {
 
             ps.setInt(1, numValutazione);
             ps.setInt(2, sommaValutazioni);
-            ps.setString(3, emailPasseggero);
+            ps.setString(3, passeggero.getEmail());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> UPDATE valutazione utente passeggero.");

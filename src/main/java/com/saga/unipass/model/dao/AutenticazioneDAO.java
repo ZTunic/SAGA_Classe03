@@ -36,7 +36,7 @@ public class AutenticazioneDAO {
     }
 
     public Utente doRetriveByEmail(String email){
-        Utente doRetrive = new Utente();
+        Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -49,16 +49,16 @@ public class AutenticazioneDAO {
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()) {
-                doRetrive.setEmail(rs.getString("email"));
-                doRetrive.setNome(rs.getString("nome"));
-                doRetrive.setCognome(rs.getString("cognome"));
-                doRetrive.setPassword(rs.getString("passwordHash"));
-                doRetrive.setTelefono(rs.getString("telefono"));
-                doRetrive.setTipo(rs.getString("tipo"));
-                doRetrive.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
-                doRetrive.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
-                doRetrive.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
-                doRetrive.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
+                utente.setEmail(rs.getString("email"));
+                utente.setNome(rs.getString("nome"));
+                utente.setCognome(rs.getString("cognome"));
+                utente.setPassword(rs.getString("passwordHash"));
+                utente.setTelefono(rs.getString("telefono"));
+                utente.setTipo(rs.getString("tipo"));
+                utente.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
+                utente.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
+                utente.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
+                utente.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
             }
             else
                 return null;
@@ -67,11 +67,11 @@ public class AutenticazioneDAO {
             e.printStackTrace();
         }
 
-        return doRetrive;
+        return utente;
     }
 
     public Utente doRetriveByCredentials(String email, String password){
-        Utente doRetrive = new Utente();
+        Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -85,16 +85,16 @@ public class AutenticazioneDAO {
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()) {
-                doRetrive.setEmail(rs.getString("email"));
-                doRetrive.setNome(rs.getString("nome"));
-                doRetrive.setCognome(rs.getString("cognome"));
-                doRetrive.setPassword(rs.getString("passwordHash"));
-                doRetrive.setTelefono(rs.getString("telefono"));
-                doRetrive.setTipo(rs.getString("tipo"));
-                doRetrive.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
-                doRetrive.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
-                doRetrive.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
-                doRetrive.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
+                utente.setEmail(rs.getString("email"));
+                utente.setNome(rs.getString("nome"));
+                utente.setCognome(rs.getString("cognome"));
+                utente.setPassword(rs.getString("passwordHash"));
+                utente.setTelefono(rs.getString("telefono"));
+                utente.setTipo(rs.getString("tipo"));
+                utente.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
+                utente.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
+                utente.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
+                utente.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
             }
             else
                 return null;
@@ -103,7 +103,7 @@ public class AutenticazioneDAO {
             e.printStackTrace();
         }
 
-        return doRetrive;
+        return utente;
     }
 
     public List<Viaggio> doRetriveViaggiCreati(String email){
@@ -143,7 +143,7 @@ public class AutenticazioneDAO {
 
 	public List<Viaggio> doRetriveViaggiPartecipati(String email){
 
-        List<Viaggio> doRetrive = null;
+        List<Viaggio> viaggi = null;
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -166,14 +166,14 @@ public class AutenticazioneDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
                 viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
 
-                doRetrive.add(viaggio);
+                viaggi.add(viaggio);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return doRetrive;
+        return viaggi;
     }
 
 	public void doUpdate(String emailUtenteModifica, Utente utente){

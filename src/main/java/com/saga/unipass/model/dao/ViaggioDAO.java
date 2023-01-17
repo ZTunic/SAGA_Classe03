@@ -1,6 +1,7 @@
 package com.saga.unipass.model.dao;
 
 
+import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;
 
 import java.sql.*;
@@ -9,17 +10,17 @@ import java.util.List;
 
 public class ViaggioDAO {
 
-    public void doSave(Viaggio viaggio, String emailGuidatore){
+    public void doSave(Viaggio viaggio){
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("INSERT INTO viaggio VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, viaggio.getDestinazione());
-            ps.setString(2, viaggio.getDataOraPartenza());
-            ps.setString(3, viaggio.getPosti());
-            ps.setString(4, viaggio.getPrezzo());
-            ps.setString(5, true);
-            ps.setString(6, emailGuidatore);
+            ps.setDate(2, (java.sql.Date) viaggio.getDataOraPartenza());
+            ps.setInt(3, viaggio.getPosti());
+            ps.setDouble(4, viaggio.getPrezzo());
+            ps.setBoolean(5, true);
+            ps.setString(6, viaggio.getGuidatore().getEmail());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> INSERT viaggio.");
@@ -36,7 +37,7 @@ public class ViaggioDAO {
         try(Connection connection = ConPool.getConnection()) {
             PreparedStatement ps =
                     connection.prepareStatement("DELETE FROM viaggio WHERE idViaggio = ?;");
-            ps.setString(1, idViaggio);
+            ps.setInt(1, idViaggio);
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> DELETE viaggio.");
@@ -55,27 +56,29 @@ public class ViaggioDAO {
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                            "FROM viaggio " +
-                            "WHERE destinazione = ?;" +
-                            "AND dataOraPartenza = ?" +
-                            "AND prezzo < ?");
+                                                    "FROM viaggio " +
+                                                    "WHERE destinazione = ?;" +
+                                                    "AND dataOraPartenza = ?" +
+                                                    "AND prezzo <= ?");
 
             ps.setString(1, destinazione);
-            ps.setString(2, dataOraPartenza);
-            ps.setString(3, prezzo);
+            ps.setDate(2, (java.sql.Date) dataOraPartenza);
+            ps.setDouble(3, prezzo);
 
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
                 Viaggio viaggio = new Viaggio();
 
-                viaggio.setId(rs.getInt("idViaggio"));
+                viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
                 viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(rs.getString("guidatore"));
+
+                AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
+                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
 
                 viaggi.add(viaggio);
             }
@@ -88,12 +91,12 @@ public class ViaggioDAO {
     }
 
 
-    public void doRemovePasseggero(int idViaggio, String emailPasseggero){
+    public void doRemovePasseggero(int idViaggio, Utente passeggero){
         try(Connection connection = ConPool.getConnection()) {
             PreparedStatement ps =
                     connection.prepareStatement("DELETE FROM partecipare WHERE viaggio = ? AND passeggero = ?;");
-            ps.setString(1, idViaggio);
-            ps.setString(1, emailPasseggero);
+            ps.setInt(1, idViaggio);
+            ps.setString(2, passeggero.getEmail());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> DELETE partecipare.");
@@ -105,26 +108,28 @@ public class ViaggioDAO {
     }
 
     public Viaggio doRetrieveById(int idViaggio){
-        Viaggio daRestituire = null;
+        Viaggio viaggio = null;
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                            "FROM viaggio " +
-                            "WHERE idViaggio = ?");
+                                                    "FROM viaggio " +
+                                                    "WHERE idViaggio = ?");
 
-            ps.setString(1, idViaggio);
+            ps.setInt(1, idViaggio);
 
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()) {
-                daRestituire.setId(rs.getInt("idViaggio"));
-                daRestituire.setDestinazione(rs.getString("destinazione"));
-                daRestituire.setDataOraPartenza(rs.getDate("dataOraPartenza"));
-                daRestituire.setPosti(rs.getInt("posti"));
-                daRestituire.setPrezzo(rs.getDouble("prezzo"));
-                daRestituire.setPrenotabile(rs.getBoolean("prenotabile"));
-                daRestituire.setGuidatore(rs.getString("guidatore"));
+                viaggio.setIdViaggio(rs.getInt("idViaggio"));
+                viaggio.setDestinazione(rs.getString("destinazione"));
+                viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
+                viaggio.setPosti(rs.getInt("posti"));
+                viaggio.setPrezzo(rs.getDouble("prezzo"));
+                viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
+
+                AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
+                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
             }
             else
                 return null;
@@ -133,7 +138,7 @@ public class ViaggioDAO {
             e.printStackTrace();
         }
 
-        return daRestituire;
+        return viaggio;
     }
 
 }
