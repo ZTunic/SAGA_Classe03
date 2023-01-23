@@ -17,7 +17,7 @@ public class AutenticazioneDAO {
 
             String query = "INSERT INTO utente(email,nome,cognome,passwordHash,telefono,tipo,numeroValutazioniPasseggero," +
                     "numeroValutazioniGuidatore,sommaValutazioniPasseggero,sommaValutazioniGuidatore) " +
-                    "VALUES (?,?,?,SHA1(?),?,?,?,?,?,?);";
+                    "VALUES (?,?,?,?,?,?,?,?,?,?);";
 
             PreparedStatement ps =
                     connection.prepareStatement(query);

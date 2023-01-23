@@ -17,11 +17,7 @@
 <body style="text-align:center">
 <nav class="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand center_mob" href="index.html"><img class="img-responsive" src="../img/logoUniPass.png"></a>
-        <form class="d-flex center_mob">
-            <a class="list-group-item" href="#"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
-            <a class="list-group-item" href="#"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
-        </form>
+        <a class="navbar-brand center_mob" href="/"><img class="img-responsive" src="../img/logoUniPass.png"></a>
     </div>
 </nav>
 
@@ -33,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a href="index.html" style="color:#ffffff" class="nav-link testo_nav" aria-current="page"><i class="fa fa-home"></i><span> HOME</span></a>
+                    <a href="/" style="color:#ffffff" class="nav-link testo_nav" aria-current="page"><i class="fa fa-home"></i><span> HOME</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="#" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
@@ -48,20 +44,20 @@
 
 <hr class="spacer">
 
-<form style="display: inline-block;">
+<form action="/login" method="post" style="display: inline-block;">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label" name="email">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label" name="password">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
     </div>
 
     <div class="container-fluid">
         <div style="text-align:center">
             <button class="btn btn-primary" type="submit">ENTRA</button>
-            <div id="emailHelp" class="form-text">Non sei registrato? <a href="#">Registrati ora!</a></div>
+            <div id="emailHelp" class="form-text">Non sei registrato? <a href="/registrazione">Registrati ora!</a></div>
         </div>
     </div>
     <hr class="spacer">
@@ -75,7 +71,7 @@
     <div style="margin-top: 1%; margin-bottom: 1%;">
         <div class="row">
         <div class="col-6 col-sm-4 d-none d-lg-block">
-            <a class="navbar-brand center_mob" href="index.html"><img class="img-responsive" src="../img/logoUniPassFooter.png"></a>
+            <a class="navbar-brand center_mob" href="/"><img class="img-responsive" src="../img/logoUniPassFooter.png"></a>
         </div>
         <div class="col-6 col-sm-4" style="padding-bottom: 0%">
             <a style="padding: 1%" class="list-group-item" href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp  CHI SIAMO</a>

@@ -3,7 +3,6 @@ package com.saga.unipass.service;
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;
 import com.saga.unipass.model.dao.AutenticazioneDAO;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +15,12 @@ public class AutenticazioneService {
     }
 
     public Utente login(String email, String password){
-        Utente utente =
-                autenticazioneDAO.doRetriveByCredentials(email, password);
+        Utente utente;
 
-        return utente;
-    }
+        if ((utente = autenticazioneDAO.doRetriveByCredentials(email, password)) != null)
+            return utente;
 
-    public void logout(){
-
+        return null;
     }
 
     public Boolean modificaProfilo(String emailUserEdit, Utente editUser){
@@ -32,6 +29,7 @@ public class AutenticazioneService {
         return true;
     }
 
+    /*
     public List<Viaggio> visualizzaStorico(String email){
         List<Viaggio> listaViaggiCreati =
                 autenticazioneDAO.doRetriveViaggiCreati(email);
@@ -56,4 +54,5 @@ public class AutenticazioneService {
 
         return listaViaggi;
     }
+     */
 }
