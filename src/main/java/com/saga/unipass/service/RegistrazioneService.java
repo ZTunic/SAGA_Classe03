@@ -13,10 +13,12 @@ public class RegistrazioneService {
         autenticazioneDAO = new AutenticazioneDAO();
     }
 
-    public void registrazioneUtente(String email, String password, String nome, String cognome, String telefono){
+    public Utente registrazioneUtente(String email, String password, String nome, String cognome, String telefono){
         Utente utente = new Utente(email, password, nome, cognome, telefono);
 
         autenticazioneDAO.doSave(utente);
+
+        return utente;
     }
 
 }

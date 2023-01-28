@@ -1,5 +1,6 @@
 package com.saga.unipass.model.dao;
 
+import com.saga.unipass.model.ConPool;
 import com.saga.unipass.model.beans.Viaggio;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ public class PrenotazioneDAO {
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("INSERT INTO partecipare VALUES (?,?)");
-            ps.setString(1, idViaggio);
+            ps.setInt(1, idViaggio);
             ps.setString(2, emailPasseggero);
 
             if (ps.executeUpdate() != 1) {
@@ -31,7 +32,7 @@ public class PrenotazioneDAO {
         try(Connection connection = ConPool.getConnection()) {
             PreparedStatement ps =
                     connection.prepareStatement("DELETE FROM partecipare WHERE viaggio = ? AND passeggero = ?;");
-            ps.setString(1, idViaggio);
+            ps.setInt(1, idViaggio);
             ps.setString(1, emailPasseggero);
 
             if (ps.executeUpdate() != 1) {
@@ -49,8 +50,8 @@ public class PrenotazioneDAO {
                     connection.prepareStatement("UPDATE viaggio " +
                             "SET prenotabile = ?" +
                             "WHERE idViaggio = ?;");
-            ps.setString(1, false);
-            ps.setString(2, idViaggio);
+            ps.setBoolean(1, false);
+            ps.setInt(2, idViaggio);
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> UPDATE viaggio.");

@@ -1,5 +1,6 @@
 package com.saga.unipass.model.dao;
 
+import com.saga.unipass.model.ConPool;
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;
 
@@ -13,8 +14,13 @@ public class AutenticazioneDAO {
 
     public void doSave(Utente utente){
         try(Connection connection = ConPool.getConnection()){
+
+            String query = "INSERT INTO utente(email,nome,cognome,passwordHash,telefono,tipo,numeroValutazioniPasseggero," +
+                    "numeroValutazioniGuidatore,sommaValutazioniPasseggero,sommaValutazioniGuidatore) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?);";
+
             PreparedStatement ps =
-                    connection.prepareStatement("INSERT INTO utente VALUES (?,?,?,SHA1(?),?,?,?,?,?,?)");
+                    connection.prepareStatement(query);
             ps.setString(1, utente.getEmail());
             ps.setString(2, utente.getNome());
             ps.setString(3, utente.getCognome());
@@ -181,7 +187,7 @@ public class AutenticazioneDAO {
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE utente " +
                                                     "SET email = ? AND nome = ? AND cognome = ? AND " +
-                                                    "passwordHash = SHAI(?) AND telefono = ? " +
+                                                    "passwordHash = SHA1(?) AND telefono = ? " +
                                                     "WHERE email = ?;");
             ps.setString(1, utente.getEmail());
             ps.setString(2, utente.getNome());
