@@ -5,6 +5,7 @@ footer img{padding-right: 50% !important; padding-top: 2%}
 
 /* PROPRIETA' DA RIUTILIZZARE */
 
+.hidden{display: none !important;}
 .spacer{height: 2px; border:none;}
 .center{text-align:center !important; margin:auto !important; display:block !important;}
 
@@ -41,6 +42,23 @@ footer img{padding-right: 50% !important; padding-top: 2%}
     line-height: 45px !important;
     background-color: #FECC18;
     border-radius: 100%;
+}
+
+.profile-size {
+    width: 100px !important;
+    height: 100px !important;
+    line-height: 100px !important;
+}
+
+.profile-action{
+    padding: 1% !important;
+    display: inline !important;
+    color:#2fa1fe !important;
+    font-size: 90% !important
+}
+
+.user-icon {
+    padding: 2%;
 }
 
 .form-text a{
@@ -121,6 +139,7 @@ a.list-group-item:hover > .button-icon {
     .float_button{position:relative !important;}
     footer p{padding-right: 5%; font-size: 50%;}
     list-group-item a{font-size: 20% !important;}
+    .bz80{font-size: 80% !important; text-align: center !important; margin-top: 1% !important;}
 } /* CHIUDO IL RESPONSIVE */
 
 
