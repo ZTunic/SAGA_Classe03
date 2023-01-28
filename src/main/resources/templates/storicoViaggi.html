@@ -7,7 +7,7 @@
     <meta name="description" content="UniPass">
     <meta name="author" content="SAGA">
     <link rel="shortcut icon" href="../static/img/tabicon.png" type="image/x-icon">
-    <title>Profilo | UNIPASS</title>
+    <title>Storico viaggi | UNIPASS</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
@@ -38,58 +38,86 @@
                     <a href="index.html" style="color:#ffffff" class="nav-link testo_nav" aria-current="page"><i class="fa fa-home"></i><span> HOME</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a href="#" style="color:#ffffff" class="nav-link testo_nav tbS"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
+                    <a href="#" style="color:#ffffff" class="nav-link testo_nav tbS" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<hr class="spacer">
-
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 5%; margin-bottom: 5%;">
     <div class="row">
-        <div class="col-md-8">
-            <h3 style="margin-left: 7%" class="list-group-item" href="#"><img class="button-icon profile-size user-icon" src="../static/img/user-icon.png">&nbsp <strong>Mario Rossi</strong></h3>
+        <div class="col-md-5">
+            <hr>
         </div>
-        <div class="col-md-4 bz80" style="padding-top: 3%;">
-            <a onclick="modificaVisibilitaProfilo()" id="liS" class="list-group-item profile-action tbS" href="#"><i class="bi bi-pencil" aria-hidden="true"></i>&nbsp  Modifica profilo</a>
-            <a class="list-group-item profile-action tbS" id="liS" href="#"><i class="liS bi bi-plus-circle tbS" aria-hidden="true"></i>&nbsp Aggiungi veicolo</a>
+        <div class="col-md-2">
+            <h3 class="center tS">I tuoi viaggi</h3>
+        </div>
+        <div class="col-md-5">
+            <hr>
         </div>
     </div>
 </div>
 
-
-<div class="container-fluid" style="margin-top: 1%; margin-bottom: 3%; min-height: 300px;">
-    <div class="row">
-        <div style="margin-left: 5%;" class="col-md-4">
-            <div class="bz80">
-                <label for="nomeID" style="color:#fecc18"><strong>Nome: </strong></label>
-                <input class="campiProfVis" style="border: none;max-width: 50%;" id="nomeID" type="text" value="Nome" readonly></input>
-            </div>
-            <div class="bz80" style="margin-top: 8%;">
-                <label for="emailID" style="color:#fecc18"><strong>Email: </strong></label>
-                <input class="campiProfVis" style="border: none;max-width: 50%;" id="emailID" type="text" value="Email" readonly></input>
-            </div>
-            <div class="bz80" style="margin-top: 8%;">
-                <label for="telefonoID" style="color:#fecc18"><strong>Numero di telefono: </strong></label>
-                <input class="campiProfVis" style="border: none;max-width: 50%;" id="telefonoID" type="text" value="3483301417" readonly></input>
-            </div>
-        </div>
-        <div style="margin-right: auto" class="col-md-4">
-            <div class="bz80">
-                <label for="cognomeID" style="color:#fecc18"><strong>Cognome: </strong></label>
-                <input class="campiProfVis" style="border: none;max-width: 50%;" id="cognomeID" type="text" value="Cognome" readonly></input>
-            </div>
-            <div class="bz80" style="margin-top: 8%;">
-                <label for="PasswordID" style="color:#fecc18"><strong>Password: </strong></label>
-                <input class="campiProfVis" style="border: none;max-width: 50%;" id="PasswordID" type="text" value="Password" readonly></input>
-            </div>
-        </div>
-        <div class="col-md-4"></div>
+<div class="table-responsive" style="margin-top: 5%; min-height: 300px;">
+    <div class="center">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Data</th>
+                <th scope="col">Destinazione</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Nr.passeggeri</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>28/01/2023</td>
+                <td>Angri</td>
+                <td>4.00€</td>
+                <td>3</td>
+                <td>
+                    <button class="btn btn-primary btn-storico" type="submit">DETTAGLI</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>28/01/2023</td>
+                <td>Angri</td>
+                <td>4.00€</td>
+                <td>3</td>
+                <td>
+                    <button class="btn btn-primary btn-storico" type="submit">DETTAGLI</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>28/01/2023</td>
+                <td>Angri</td>
+                <td>4.00€</td>
+                <td>3</td>
+                <td>
+                    <button class="btn btn-primary btn-storico" type="submit">DETTAGLI</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>28/01/2023</td>
+                <td>Angri</td>
+                <td>4.00€</td>
+                <td>3</td>
+                <td>
+                    <button class="btn btn-primary btn-storico" type="submit">DETTAGLI</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -113,9 +141,7 @@
 </footer>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../static/js/modVIs.js"></script>
 
 </body>
 </html>
