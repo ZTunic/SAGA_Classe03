@@ -79,7 +79,7 @@ public class ViaggioDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
 
                 viaggi.add(viaggio);
             }
@@ -130,7 +130,7 @@ public class ViaggioDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
             }
             else
                 return null;

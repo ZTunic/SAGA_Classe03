@@ -32,7 +32,7 @@ public class VeicoloDAO {
         }
     }
 
-    public Veicolo doRetriveByTarga(String targa){
+    public Veicolo doRetrieveByTarga(String targa){
         Veicolo veicolo = new Veicolo();
 
         try(Connection connection = ConPool.getConnection()){
@@ -53,7 +53,7 @@ public class VeicoloDAO {
                 veicolo.setPostiDisponibili(rs.getInt("postiDisponibili"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                Utente utente = autenticazioneDAO.doRetriveByEmail(rs.getString("proprietario"));
+                Utente utente = autenticazioneDAO.doRetrieveByEmail(rs.getString("proprietario"));
             }
             else
                 return null;

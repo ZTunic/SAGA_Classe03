@@ -41,7 +41,7 @@ public class AutenticazioneDAO {
         }
     }
 
-    public Utente doRetriveByEmail(String email){
+    public Utente doRetrieveByEmail(String email){
         Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
@@ -76,7 +76,7 @@ public class AutenticazioneDAO {
         return utente;
     }
 
-    public Utente doRetriveByCredentials(String email, String password){
+    public Utente doRetrieveByCredentials(String email, String password){
         Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
@@ -112,9 +112,9 @@ public class AutenticazioneDAO {
         return utente;
     }
 
-    public List<Viaggio> doRetriveViaggiCreati(String email){
+    public List<Viaggio> doRetrieveViaggiCreati(String email){
 
-        List<Viaggio> doRetrive = null;
+        List<Viaggio> doRetrieve = null;
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -135,19 +135,19 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(doRetrieveByEmail(rs.getString("guidatore")));
 
-                doRetrive.add(viaggio);
+                doRetrieve.add(viaggio);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return doRetrive;
+        return doRetrieve;
     }
 
-	public List<Viaggio> doRetriveViaggiPartecipati(String email){
+	public List<Viaggio> doRetrieveViaggiPartecipati(String email){
 
         List<Viaggio> viaggi = null;
 
@@ -170,7 +170,7 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(doRetrieveByEmail(rs.getString("guidatore")));
 
                 viaggi.add(viaggio);
             }

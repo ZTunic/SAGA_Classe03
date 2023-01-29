@@ -17,7 +17,7 @@ public class AutenticazioneService {
     public Utente login(String email, String password){
         Utente utente;
 
-        if ((utente = autenticazioneDAO.doRetriveByCredentials(email, password)) != null)
+        if ((utente = autenticazioneDAO.doRetrieveByCredentials(email, password)) != null)
             return utente;
 
         return null;
@@ -32,9 +32,9 @@ public class AutenticazioneService {
     /*
     public List<Viaggio> visualizzaStorico(String email){
         List<Viaggio> listaViaggiCreati =
-                autenticazioneDAO.doRetriveViaggiCreati(email);
+                autenticazioneDAO.doRetrieveViaggiCreati(email);
         List<Viaggio> listaViaggiPartecipati =
-                autenticazioneDAO.doRetriveViaggiPartecipati(email);
+                autenticazioneDAO.doRetrieveViaggiPartecipati(email);
 
         List<Viaggio> listaViaggi = new ArrayList<>();
 
