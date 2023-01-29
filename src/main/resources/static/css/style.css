@@ -128,6 +128,65 @@ a.list-group-item:hover > .button-icon {
     color: red;
 }
 
+/* RATING */
+
+.rating {
+    display: inline-block !important; position: relative !important; height: 50px !important;
+    line-height: 50px !important; font-size: 40px !important;
+}
+
+.rating label {
+    position: absolute !important; top: 0 !important; left: 0 !important;
+    height: 100% !important; cursor: pointer !important;
+}
+
+.rating label:last-child {
+    position: static !important;
+}
+
+.rating label:nth-child(1) {
+    z-index: 5 !important;
+}
+
+.rating label:nth-child(2) {
+    z-index: 4 !important;
+}
+
+.rating label:nth-child(3) {
+    z-index: 3 !important;
+}
+
+.rating label:nth-child(4) {
+    z-index: 2 !important;
+}
+
+.rating label:nth-child(5) {
+    z-index: 1 !important;
+}
+
+.rating label input {
+    position: absolute !important; top: 0 !important; left: 0 !important; opacity: 0 !important;
+}
+
+.rating label .icon {
+    float: left !important; color: transparent !important;
+}
+
+.rating label:last-child .icon {
+    color: #000 !important;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+    color: #FECC18 !important;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000 !important; text-shadow: 0 0 5px #FECC18 !important;
+}
+
+.rMB{font-size: 100% !important;}
+
 /* COVER */
 .w-100{height:595px !important;background-size: cover !important; -o-background-size: cover !important;
     -moz-background-size: cover !important; background-position: center center !important; position:relative !important;}
