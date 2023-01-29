@@ -80,7 +80,7 @@ public class ViaggioDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
 
                 viaggi.add(viaggio);
             }
@@ -109,7 +109,7 @@ public class ViaggioDAO {
         }
     }
 
-    public ArrayList<Utente> doRetrivePasseggeriViaggio(int idViaggio){
+    public ArrayList<Utente> doRetrievePasseggeriViaggio(int idViaggio){
         ArrayList<Utente> listaPasseggeri = new ArrayList<>();
 
         AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
@@ -124,7 +124,7 @@ public class ViaggioDAO {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                listaPasseggeri.add(autenticazioneDAO.doRetriveByEmail(rs.getString("passeggero")));
+                listaPasseggeri.add(autenticazioneDAO.doRetrieveByEmail(rs.getString("passeggero")));
             }
         }
         catch (SQLException e){
@@ -156,7 +156,7 @@ public class ViaggioDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
             }
             else
                 return null;

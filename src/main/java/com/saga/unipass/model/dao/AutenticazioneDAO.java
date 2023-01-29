@@ -41,7 +41,7 @@ public class AutenticazioneDAO {
         }
     }
 
-    public Utente doRetriveByEmail(String email){
+    public Utente doRetrieveByEmail(String email){
         Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
@@ -76,7 +76,7 @@ public class AutenticazioneDAO {
         return utente;
     }
 
-    public Utente doRetriveByCredentials(String email, String password){
+    public Utente doRetrieveByCredentials(String email, String password){
         Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
@@ -100,7 +100,7 @@ public class AutenticazioneDAO {
 
                 if(rs.getString("tipo").equalsIgnoreCase("guidatore")){
                     VeicoloDAO veicoloDAO = new VeicoloDAO();
-                    utente.setVeicolo(veicoloDAO.doRetriveByGuidatore(rs.getString("email")));
+                    utente.setVeicolo(veicoloDAO.doRetrieveByGuidatore(rs.getString("email")));
                 }
 
                 utente.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
@@ -108,11 +108,11 @@ public class AutenticazioneDAO {
                 utente.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
                 utente.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
 
-                ArrayList<Viaggio> viaggiCreati = doRetriveViaggiCreati(rs.getString("email"));
+                ArrayList<Viaggio> viaggiCreati = doRetrieveViaggiCreati(rs.getString("email"));
                 if(viaggiCreati != null)
                     utente.setListaViaggiCreati(viaggiCreati);
 
-                ArrayList<Viaggio> viaggiPartecipati = doRetriveViaggiPartecipati(rs.getString("email"));
+                ArrayList<Viaggio> viaggiPartecipati = doRetrieveViaggiPartecipati(rs.getString("email"));
                 if(viaggiPartecipati != null)
                     utente.setListaViaggiPartecipati(viaggiPartecipati);
             }
@@ -126,9 +126,9 @@ public class AutenticazioneDAO {
         return utente;
     }
 
-    public ArrayList<Viaggio> doRetriveViaggiCreati(String email){
+    public ArrayList<Viaggio> doRetrieveViaggiCreati(String email){
 
-        ArrayList<Viaggio> doRetrive = new ArrayList<>();
+        ArrayList<Viaggio> doRetrieve = new ArrayList<>();
         ViaggioDAO viaggioDAO = new ViaggioDAO();
 
         try(Connection connection = ConPool.getConnection()){
@@ -150,20 +150,20 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
-                viaggio.setListaPasseggeri(viaggioDAO.doRetrivePasseggeriViaggio(rs.getInt("idViaggio")));
+                viaggio.setGuidatore(doRetrieveByEmail(rs.getString("guidatore")));
+                viaggio.setListaPasseggeri(viaggioDAO.doRetrievePasseggeriViaggio(rs.getInt("idViaggio")));
 
-                doRetrive.add(viaggio);
+                doRetrieve.add(viaggio);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return doRetrive;
+        return doRetrieve;
     }
 
-    public ArrayList<Viaggio> doRetriveViaggiPartecipati(String email){
+    public ArrayList<Viaggio> doRetrieveViaggiPartecipati(String email){
 
         ArrayList<Viaggio> viaggi = new ArrayList<>();
         ViaggioDAO viaggioDAO = new ViaggioDAO();
@@ -187,8 +187,8 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
-                viaggio.setListaPasseggeri(viaggioDAO.doRetrivePasseggeriViaggio(rs.getInt("idViaggio")));
+                viaggio.setGuidatore(doRetrieveByEmail(rs.getString("guidatore")));
+                viaggio.setListaPasseggeri(viaggioDAO.doRetrievePasseggeriViaggio(rs.getInt("idViaggio")));
 
                 viaggi.add(viaggio);
             }
