@@ -13,7 +13,7 @@ public class ValutazioneDAO {
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE utente " +
-                                                    "SET numeroValutazioniGuidatore = ? AND sommaValutazioniGuidatore = ? " +
+                                                    "SET numeroValutazioniGuidatore = ?, sommaValutazioniGuidatore = ? " +
                                                     "WHERE email = ?;");
 
             ps.setInt(1, numValutazione);
@@ -33,7 +33,7 @@ public class ValutazioneDAO {
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE utente " +
-                                                    "SET numeroValutazioniPasseggero = ? AND sommaValutazioniPasseggero = ? " +
+                                                    "SET numeroValutazioniPasseggero = ?, sommaValutazioniPasseggero = ? " +
                                                     "WHERE email = ?;");
 
             ps.setInt(1, numValutazione);

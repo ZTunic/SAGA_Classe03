@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class VeicoloDAO {
 
-    public void doSave(Veicolo veicolo, String emailProprietario){
+    public void doSave(Veicolo veicolo){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("INSERT INTO veicolo VALUES (?,?,?,?,?,?)");
@@ -20,7 +20,7 @@ public class VeicoloDAO {
             ps.setString(3, veicolo.getModello());
             ps.setString(4, veicolo.getColore());
             ps.setInt(5, veicolo.getPostiDisponibili());
-            ps.setString(6, emailProprietario);              //proprietario veicolo
+            ps.setString(6, veicolo.getProprietario().getEmail()); //proprietario veicolo
 
 
             if (ps.executeUpdate() != 1) {
@@ -32,14 +32,14 @@ public class VeicoloDAO {
         }
     }
 
-    public Veicolo doRetrieveByTarga(String targa){
+    public Veicolo doRetriveByTarga(String targa){
         Veicolo veicolo = new Veicolo();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM veicolo " +
-                                                    "WHERE targa= ?;");
+                            "FROM veicolo " +
+                            "WHERE targa= ?;");
 
             ps.setString(1, targa);
 
@@ -53,7 +53,8 @@ public class VeicoloDAO {
                 veicolo.setPostiDisponibili(rs.getInt("postiDisponibili"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                Utente utente = autenticazioneDAO.doRetrieveByEmail(rs.getString("proprietario"));
+                Utente utente = autenticazioneDAO.doRetriveByEmail(rs.getString("proprietario"));
+                veicolo.setProprietario(utente);
             }
             else
                 return null;
@@ -65,13 +66,47 @@ public class VeicoloDAO {
         return veicolo;
     }
 
-	public void doUpdate(String targaVeicoloModifica, Veicolo veicolo){
+    public Veicolo doRetriveByGuidatore(String email){
+        Veicolo veicolo = new Veicolo();
+
+        try(Connection connection = ConPool.getConnection()){
+            PreparedStatement ps =
+                    connection.prepareStatement("SELECT * " +
+                            "FROM veicolo " +
+                            "WHERE proprietario = ?;");
+
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                veicolo.setTarga(rs.getString("targa"));
+                veicolo.setMarca(rs.getString("marca"));
+                veicolo.setModello(rs.getString("modello"));
+                veicolo.setColore(rs.getString("colore"));
+                veicolo.setPostiDisponibili(rs.getInt("postiDisponibili"));
+
+                AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
+                Utente utente = autenticazioneDAO.doRetriveByEmail(rs.getString("proprietario"));
+                veicolo.setProprietario(utente);
+            }
+            else
+                return null;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return veicolo;
+    }
+
+    public void doUpdate(String targaVeicoloModifica, Veicolo veicolo){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE veicolo " +
-                                                    "SET targa = ? AND marca = ? AND modello = ? AND " +
-                                                    "colore = ? AND postiDisponibili = ? " +
-                                                    "WHERE targa = ?;");
+                            "SET targa = ?, marca = ?, modello = ?, " +
+                            "colore = ?, postiDisponibili = ? " +
+                            "WHERE targa = ?;");
             ps.setString(1, veicolo.getTarga());
             ps.setString(2, veicolo.getMarca());
             ps.setString(3, veicolo.getModello());
@@ -88,7 +123,7 @@ public class VeicoloDAO {
         }
     }
 
-	public void doRemove(String targa){
+    public void doRemove(String targa){
         try(Connection connection = ConPool.getConnection()) {
             PreparedStatement ps =
                     connection.prepareStatement("DELETE FROM veicolo WHERE targa = ?;");

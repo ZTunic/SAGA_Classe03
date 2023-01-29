@@ -1,11 +1,14 @@
 package com.saga.unipass.controller;
 
 import com.saga.unipass.model.beans.Utente;
+import com.saga.unipass.model.beans.Viaggio;
 import com.saga.unipass.service.AutenticazioneService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.ArrayList;
 
 @Controller
 @SessionAttributes("utenteLoggato")
@@ -20,6 +23,36 @@ public class AutenticazioneController {
     public String loginUtente(Model model) {
         model.addAttribute("utenteLoggato", null);
         return "login.html";
+    }
+
+    @RequestMapping("/storico-viaggi")
+    public String visualizzaStorico(Model model){
+        return "visStorico.html";
+        /*
+        Utente utente = (Utente) model.getAttribute("utenteLoggato");
+        String str = "";
+
+        if(utente != null){
+            ArrayList<Viaggio> lista = utente.getListaViaggi();
+            for(Viaggio v: lista){
+                str += v.getGuidatore().getEmail() + " // ";
+            }
+        }
+        System.out.println(str);
+
+        return str;
+
+         */
+    }
+
+    @RequestMapping("/pagina-utente-passeggero")
+    public String paginaProfiloPasseggero(){
+        return "profiloPasseggero.html";
+    }
+
+    @RequestMapping("/pagina-utente-guidatore")
+    public String paginaProfiloGuidatore(){
+        return "profiloGuidatore.html";
     }
 
     @RequestMapping("/home")
@@ -38,7 +71,7 @@ public class AutenticazioneController {
         }
 
         model.addAttribute("utenteLoggato", utente);
-        return "home.html";
+        return "redirect:/home";
     }
 
     @RequestMapping("/logout")
@@ -47,32 +80,33 @@ public class AutenticazioneController {
         return "redirect:/";
     }
 
-    @RequestMapping("/storico-viaggi")
-    public String visualizzaStorico(){
-        return "storico.html";
-    }
-
     @RequestMapping("/modifica")
-    public String modificaProfilo(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
-                                  @RequestParam(name = "nome") String nome, @RequestParam(name = "cognome") String cognome,
-                                  @RequestParam(name = "telefono") String telefono, Model model){
+    public String modificaProfilo(@RequestParam(name = "nome") String nome, @RequestParam(name = "email") String email,
+                                  @RequestParam(name = "telefono") String telefono, @RequestParam(name = "cognome") String cognome,
+                                  @RequestParam(name = "password") String password, Model model){
 
         Utente utenteLoggato = (Utente) model.getAttribute("utenteLoggato");
+        String emailUtenteModifica = utenteLoggato.getEmail();
+
         Utente utenteModificato = utenteLoggato;
-        utenteModificato.setEmail(email);
-        utenteModificato.setPassword(password);
+        if(!emailUtenteModifica.equalsIgnoreCase(email))
+            utenteModificato.setEmail(email);
+        if(!password.equalsIgnoreCase("password"))
+            utenteModificato.setPassword(password);
         utenteModificato.setNome(nome);
         utenteModificato.setCognome(cognome);
         utenteModificato.setTelefono(telefono);
 
-        if(autenticazioneService.modificaProfilo(utenteLoggato.getEmail(), utenteModificato)){
+        if(autenticazioneService.modificaProfilo(emailUtenteModifica, utenteModificato)){
             model.addAttribute("utenteLoggato", utenteModificato);
             model.addAttribute("success-update", true);
         }
         else
             model.addAttribute("error", true);
 
-        return "redirect:/home";
+        if(utenteModificato.getTipo().equalsIgnoreCase("passeggero"))
+            return "redirect:/pagina-utente-passeggero";
+        return "redirect:/pagina-utente-guidatore";
     }
 
 

@@ -26,8 +26,8 @@ public class Utente {
     private int numeroValutazioniGuidatore;
     private int sommaValutazioniPasseggero;
     private int sommaValutazioniGuidatore;
-    private List<Viaggio> listaViaggiCreati;
-    private List<Viaggio> listaViaggiPartecipati;
+    private ArrayList<Viaggio> listaViaggiCreati;
+    private ArrayList<Viaggio> listaViaggiPartecipati;
     private Veicolo veicolo;
 
     /**
@@ -148,19 +148,19 @@ public class Utente {
         this.sommaValutazioniGuidatore = sommaValutazioniGuidatore;
     }
 
-    public List<Viaggio> getListaViaggiCreati() {
+    public ArrayList<Viaggio> getListaViaggiCreati() {
         return listaViaggiCreati;
     }
 
-    public void setListaViaggiCreati(List<Viaggio> listaViaggiCreati) {
+    public void setListaViaggiCreati(ArrayList<Viaggio> listaViaggiCreati) {
         this.listaViaggiCreati = listaViaggiCreati;
     }
 
-    public List<Viaggio> getListaViaggiPartecipati() {
+    public ArrayList<Viaggio> getListaViaggiPartecipati() {
         return listaViaggiPartecipati;
     }
 
-    public void setListaViaggiPartecipati(List<Viaggio> listaViaggiPartecipati) {
+    public void setListaViaggiPartecipati(ArrayList<Viaggio> listaViaggiPartecipati) {
         this.listaViaggiPartecipati = listaViaggiPartecipati;
     }
 
@@ -178,7 +178,7 @@ public class Utente {
      * dei viaggi che ha creato</i>.
      * @return  la lista che rappresenta lo "Storico viaggi" di un utente.
      */
-    public List<Viaggio> getListaViaggi(){
+    public ArrayList<Viaggio> getListaViaggi(){
         ArrayList<Viaggio> listaViaggi = new ArrayList<>();
 
         if(listaViaggiCreati != null){
@@ -222,6 +222,13 @@ public class Utente {
             media = sommaValutazioniGuidatore / numeroValutazioniGuidatore;
 
         return media;
+    }
+
+    /**
+     * Rimuove un veicolo associato ad un guidatore.
+     */
+    public void rimuoviVeicolo(){
+        veicolo = null;
     }
 
 

@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class AutenticazioneDAO {
 
@@ -41,14 +41,14 @@ public class AutenticazioneDAO {
         }
     }
 
-    public Utente doRetrieveByEmail(String email){
+    public Utente doRetriveByEmail(String email){
         Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM utente " +
-                                                    "WHERE email= ?;");
+                            "FROM utente " +
+                            "WHERE email= ?;");
 
             ps.setString(1, email);
 
@@ -76,14 +76,14 @@ public class AutenticazioneDAO {
         return utente;
     }
 
-    public Utente doRetrieveByCredentials(String email, String password){
+    public Utente doRetriveByCredentials(String email, String password){
         Utente utente = new Utente();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM utente " +
-                                                    "WHERE email= ? AND passwordHash=SHA1(?);");
+                            "FROM utente " +
+                            "WHERE email= ? AND passwordHash=SHA1(?);");
 
             ps.setString(1, email);
             ps.setString(2, password);
@@ -97,10 +97,24 @@ public class AutenticazioneDAO {
                 utente.setPassword(rs.getString("passwordHash"));
                 utente.setTelefono(rs.getString("telefono"));
                 utente.setTipo(rs.getString("tipo"));
+
+                if(rs.getString("tipo").equalsIgnoreCase("guidatore")){
+                    VeicoloDAO veicoloDAO = new VeicoloDAO();
+                    utente.setVeicolo(veicoloDAO.doRetriveByGuidatore(rs.getString("email")));
+                }
+
                 utente.setNumeroValutazioniPasseggero(rs.getInt("numeroValutazioniPasseggero"));
                 utente.setNumeroValutazioniGuidatore(rs.getInt("numeroValutazioniGuidatore"));
                 utente.setSommaValutazioniPasseggero(rs.getInt("sommaValutazioniPasseggero"));
                 utente.setSommaValutazioniGuidatore(rs.getInt("sommaValutazioniGuidatore"));
+
+                ArrayList<Viaggio> viaggiCreati = doRetriveViaggiCreati(rs.getString("email"));
+                if(viaggiCreati != null)
+                    utente.setListaViaggiCreati(viaggiCreati);
+
+                ArrayList<Viaggio> viaggiPartecipati = doRetriveViaggiPartecipati(rs.getString("email"));
+                if(viaggiPartecipati != null)
+                    utente.setListaViaggiPartecipati(viaggiPartecipati);
             }
             else
                 return null;
@@ -112,15 +126,15 @@ public class AutenticazioneDAO {
         return utente;
     }
 
-    public List<Viaggio> doRetrieveViaggiCreati(String email){
+    public ArrayList<Viaggio> doRetriveViaggiCreati(String email){
 
-        List<Viaggio> doRetrieve = null;
+        ArrayList<Viaggio> doRetrive = new ArrayList<>();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM viaggio " +
-                                                    "WHERE guidatore = ?;");
+                            "FROM viaggio " +
+                            "WHERE guidatore = ?;");
 
             ps.setString(1, email);
 
@@ -135,27 +149,27 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(doRetrieveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
 
-                doRetrieve.add(viaggio);
+                doRetrive.add(viaggio);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return doRetrieve;
+        return doRetrive;
     }
 
-	public List<Viaggio> doRetrieveViaggiPartecipati(String email){
+    public ArrayList<Viaggio> doRetriveViaggiPartecipati(String email){
 
-        List<Viaggio> viaggi = null;
+        ArrayList<Viaggio> viaggi = new ArrayList<>();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT v.* " +
-                                                    "FROM partecipare p, viaggio v " +
-                                                    "WHERE ? = p.passeggero AND p.viaggio = v.idViaggio;");
+                            "FROM partecipare p, viaggio v " +
+                            "WHERE ? = p.passeggero AND p.viaggio = v.idViaggio;");
 
             ps.setString(1, email);
 
@@ -170,7 +184,7 @@ public class AutenticazioneDAO {
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
-                viaggio.setGuidatore(doRetrieveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
 
                 viaggi.add(viaggio);
             }
@@ -182,13 +196,14 @@ public class AutenticazioneDAO {
         return viaggi;
     }
 
-	public void doUpdate(String emailUtenteModifica, Utente utente){
+    public void doUpdate(String emailUtenteModifica, Utente utente){
+
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE utente " +
-                                                    "SET email = ? AND nome = ? AND cognome = ? AND " +
-                                                    "passwordHash = SHA1(?) AND telefono = ? " +
-                                                    "WHERE email = ?;");
+                            "SET email = ?, nome = ?, cognome = ?, " +
+                            "passwordHash = ?, telefono = ? " +
+                            "WHERE email = ?;");
             ps.setString(1, utente.getEmail());
             ps.setString(2, utente.getNome());
             ps.setString(3, utente.getCognome());

@@ -1,11 +1,10 @@
 package com.saga.unipass.service;
 
 import com.saga.unipass.model.beans.Utente;
-import com.saga.unipass.model.beans.Viaggio;
 import com.saga.unipass.model.dao.AutenticazioneDAO;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AutenticazioneService {
 
     private AutenticazioneDAO autenticazioneDAO;
@@ -17,7 +16,7 @@ public class AutenticazioneService {
     public Utente login(String email, String password){
         Utente utente;
 
-        if ((utente = autenticazioneDAO.doRetrieveByCredentials(email, password)) != null)
+        if ((utente = autenticazioneDAO.doRetriveByCredentials(email, password)) != null)
             return utente;
 
         return null;
@@ -32,9 +31,9 @@ public class AutenticazioneService {
     /*
     public List<Viaggio> visualizzaStorico(String email){
         List<Viaggio> listaViaggiCreati =
-                autenticazioneDAO.doRetrieveViaggiCreati(email);
+                autenticazioneDAO.doRetriveViaggiCreati(email);
         List<Viaggio> listaViaggiPartecipati =
-                autenticazioneDAO.doRetrieveViaggiPartecipati(email);
+                autenticazioneDAO.doRetriveViaggiPartecipati(email);
 
         List<Viaggio> listaViaggi = new ArrayList<>();
 
