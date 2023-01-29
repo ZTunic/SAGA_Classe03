@@ -27,7 +27,7 @@ public class AutenticazioneController {
 
     @RequestMapping("/storico-viaggi")
     public String visualizzaStorico(Model model){
-        return "visStorico.html";
+        return "storicoViaggi.html";
         /*
         Utente utente = (Utente) model.getAttribute("utenteLoggato");
         String str = "";

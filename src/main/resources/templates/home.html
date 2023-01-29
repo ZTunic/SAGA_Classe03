@@ -19,7 +19,7 @@
         <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../img/logoUniPass.png"></a>
         <!-- CLAUSOLA IF -->
         <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'passeggero'}">
-            <a class="list-group-item" href="#"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+            <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
             <a class="list-group-item" href="/pagina-utente-passeggero"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
             <a class="list-group-item" href="/logout"><i class="fa fa-sign-out button-icon" aria-hidden="true"></i>&nbsp; ESCI</a>
         </form>

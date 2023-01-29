@@ -21,7 +21,7 @@ public class Viaggio {
     private double prezzo;
     private boolean prenotabile;
     private Utente guidatore;
-    private List<Utente> listaPasseggeri;
+    private ArrayList<Utente> listaPasseggeri;
 
     /**
      * <h2>Costruttori della classe</h2>
@@ -102,11 +102,11 @@ public class Viaggio {
         this.guidatore = guidatore;
     }
 
-    public List<Utente> getListaPasseggeri() {
+    public ArrayList<Utente> getListaPasseggeri() {
         return listaPasseggeri;
     }
 
-    public void setListaPasseggeri(List<Utente> listaPasseggeri) {
+    public void setListaPasseggeri(ArrayList<Utente> listaPasseggeri) {
         this.listaPasseggeri = listaPasseggeri;
     }
 }

@@ -6,6 +6,7 @@ import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class ViaggioDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
 
                 viaggi.add(viaggio);
             }
@@ -108,6 +109,31 @@ public class ViaggioDAO {
         }
     }
 
+    public ArrayList<Utente> doRetrivePasseggeriViaggio(int idViaggio){
+        ArrayList<Utente> listaPasseggeri = new ArrayList<>();
+
+        AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
+
+        try(Connection connection = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    connection.prepareStatement("SELECT * " +
+                                                    "FROM partecipare " +
+                                                    "WHERE viaggio = ?;");
+            ps.setInt(1, idViaggio);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                listaPasseggeri.add(autenticazioneDAO.doRetriveByEmail(rs.getString("passeggero")));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return listaPasseggeri;
+    }
+
     public Viaggio doRetrieveById(int idViaggio){
         Viaggio viaggio = null;
 
@@ -130,7 +156,7 @@ public class ViaggioDAO {
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
-                viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
+                viaggio.setGuidatore(autenticazioneDAO.doRetriveByEmail(rs.getString("guidatore")));
             }
             else
                 return null;

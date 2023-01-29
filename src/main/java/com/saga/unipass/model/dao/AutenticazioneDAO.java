@@ -129,6 +129,7 @@ public class AutenticazioneDAO {
     public ArrayList<Viaggio> doRetriveViaggiCreati(String email){
 
         ArrayList<Viaggio> doRetrive = new ArrayList<>();
+        ViaggioDAO viaggioDAO = new ViaggioDAO();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -150,6 +151,7 @@ public class AutenticazioneDAO {
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
                 viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setListaPasseggeri(viaggioDAO.doRetrivePasseggeriViaggio(rs.getInt("idViaggio")));
 
                 doRetrive.add(viaggio);
             }
@@ -164,6 +166,7 @@ public class AutenticazioneDAO {
     public ArrayList<Viaggio> doRetriveViaggiPartecipati(String email){
 
         ArrayList<Viaggio> viaggi = new ArrayList<>();
+        ViaggioDAO viaggioDAO = new ViaggioDAO();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
@@ -185,6 +188,7 @@ public class AutenticazioneDAO {
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
                 viaggio.setGuidatore(doRetriveByEmail(rs.getString("guidatore")));
+                viaggio.setListaPasseggeri(viaggioDAO.doRetrivePasseggeriViaggio(rs.getInt("idViaggio")));
 
                 viaggi.add(viaggio);
             }
