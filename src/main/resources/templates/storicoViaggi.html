@@ -20,9 +20,14 @@
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../img/logoUniPass.png"></a>
-        <form class="d-flex center_mob">
-            <a class="list-group-item" href="#"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
-            <a class="list-group-item" href="#"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+        <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'passeggero'}">
+            <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+            <a class="list-group-item" href="/pagina-utente-passeggero"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+        </form>
+
+        <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo'] == 'guidatore'}">
+            <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+            <a class="list-group-item" href="/pagina-utente-guidatore"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
         </form>
     </div>
 </nav>
@@ -63,8 +68,8 @@
 </div>
 
 <div class="table-responsive" style="margin-top: 5%; min-height: 300px;">
-    <div class="center">
-        <table class="table">
+    <div class="center" th:with="viaggio = ${session.utenteLoggato.getListaViaggi}">
+        <table class="table" th:if="${viaggio.size > 0}">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -75,9 +80,9 @@
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody th:with="viaggio = ${session.utenteLoggato.getListaViaggi}">
-                <tr th:each="v : ${viaggio}">
-                    <form action="dettagli-viaggio" method="get">
+            <tbody>
+            <tr th:each="v : ${viaggio}">
+                <form action="dettagli-viaggio" method="get">
                     <th scope="row" th:text="${v['getIdViaggio']}"></th>
                     <td th:text="${v['getDataOraPartenza']}" ></td>
                     <td th:text="${v['getDestinazione']}"></td>
@@ -86,11 +91,13 @@
                     <td>
                         <input type="hidden" name="idViaggio" th:value="${v['getIdViaggio']}">
                         <button class="btn btn-primary btn-storico" type="submit">DETTAGLI</button>
-                    </form>
-                    </td>
-                </tr>
+                </form>
+                </td>
+            </tr>
             </tbody>
         </table>
+
+        <h2 th:if="${viaggio.size == 0}"> Non hai ancora effettuato un viaggio</h2>
     </div>
 </div>
 

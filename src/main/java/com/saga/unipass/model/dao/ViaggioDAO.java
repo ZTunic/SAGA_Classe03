@@ -8,7 +8,6 @@ import com.saga.unipass.model.beans.Viaggio;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ViaggioDAO {
 
@@ -51,17 +50,17 @@ public class ViaggioDAO {
     }
 
 
-    public List<Viaggio> doSearch(String destinazione, Date dataOraPartenza, double prezzo){
+    public ArrayList<Viaggio> doSearch(String destinazione, Date dataOraPartenza, double prezzo){
 
-        List<Viaggio> viaggi = null;
+        ArrayList<Viaggio> viaggi = new ArrayList<>();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM viaggio " +
-                                                    "WHERE destinazione = ?;" +
-                                                    "AND dataOraPartenza = ?" +
-                                                    "AND prezzo <= ?");
+                            "FROM viaggio " +
+                            "WHERE destinazione = ?;" +
+                            "AND dataOraPartenza = ?" +
+                            "AND prezzo <= ?");
 
             ps.setString(1, destinazione);
             ps.setDate(2, (java.sql.Date) dataOraPartenza);
@@ -117,8 +116,8 @@ public class ViaggioDAO {
         try(Connection connection = ConPool.getConnection()) {
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM partecipare " +
-                                                    "WHERE viaggio = ?;");
+                            "FROM partecipare " +
+                            "WHERE viaggio = ?;");
             ps.setInt(1, idViaggio);
 
             ResultSet rs = ps.executeQuery();
@@ -135,13 +134,13 @@ public class ViaggioDAO {
     }
 
     public Viaggio doRetrieveById(int idViaggio){
-        Viaggio viaggio = null;
+        Viaggio viaggio = new Viaggio();
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
-                                                    "FROM viaggio " +
-                                                    "WHERE idViaggio = ?");
+                            "FROM viaggio " +
+                            "WHERE idViaggio = ?");
 
             ps.setInt(1, idViaggio);
 
@@ -157,6 +156,8 @@ public class ViaggioDAO {
 
                 AutenticazioneDAO autenticazioneDAO = new AutenticazioneDAO();
                 viaggio.setGuidatore(autenticazioneDAO.doRetrieveByEmail(rs.getString("guidatore")));
+
+                viaggio.setListaPasseggeri(doRetrievePasseggeriViaggio(rs.getInt("idViaggio")));
             }
             else
                 return null;

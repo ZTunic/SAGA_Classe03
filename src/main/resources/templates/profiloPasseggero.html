@@ -20,9 +20,14 @@
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../img/logoUniPass.png"></a>
-        <form class="d-flex center_mob">
-            <a class="list-group-item" href="#"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
-            <a class="list-group-item" href="#"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+        <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'passeggero'}">
+            <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+            <a class="list-group-item" href="/pagina-utente-passeggero"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+        </form>
+
+        <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'guidatore'}">
+            <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+            <a class="list-group-item" href="/pagina-utente-guidatore"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
         </form>
     </div>
 </nav>
@@ -97,6 +102,7 @@
 </div>
 
 <div id="containerFormVeicolo" class="container-fluid" style="display: none; margin-top: 1%; margin-bottom: 3%;">
+    <h3>INSERISCI LE INFORMAZIONI DEL NUOVO VEICOLO</h3>
     <form action="/aggiungi-veicolo" method="post">
         <div class="row">
             <div style="margin-left: 5%" class="col-md-4">

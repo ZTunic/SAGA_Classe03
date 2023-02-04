@@ -1,14 +1,11 @@
 package com.saga.unipass.controller;
 
 import com.saga.unipass.model.beans.Utente;
-import com.saga.unipass.model.beans.Viaggio;
 import com.saga.unipass.service.AutenticazioneService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-
-import java.util.ArrayList;
 
 @Controller
 @SessionAttributes("utenteLoggato")
@@ -28,21 +25,6 @@ public class AutenticazioneController {
     @RequestMapping("/storico-viaggi")
     public String visualizzaStorico(Model model){
         return "storicoViaggi.html";
-        /*
-        Utente utente = (Utente) model.getAttribute("utenteLoggato");
-        String str = "";
-
-        if(utente != null){
-            ArrayList<Viaggio> lista = utente.getListaViaggi();
-            for(Viaggio v: lista){
-                str += v.getGuidatore().getEmail() + " // ";
-            }
-        }
-        System.out.println(str);
-
-        return str;
-
-         */
     }
 
     @RequestMapping("/pagina-utente-passeggero")

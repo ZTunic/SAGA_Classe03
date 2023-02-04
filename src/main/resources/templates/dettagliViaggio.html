@@ -10,7 +10,7 @@
   <title>Dettagli Viaggio | UNIPASS</title>
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-  <link href="../static/css/style.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,10 +19,15 @@
 <body style="height: 100%; min-height: 100%;">
 <nav class="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../static/img/logoUniPass.png"></a>
-    <form class="d-flex center_mob">
-      <a class="list-group-item" href="#"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
-      <a class="list-group-item" href="#"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+    <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../img/logoUniPass.png"></a>
+    <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'passeggero'}">
+      <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+      <a class="list-group-item" href="/pagina-utente-passeggero"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+    </form>
+
+    <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'guidatore'}">
+      <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
+      <a class="list-group-item" href="/pagina-utente-guidatore"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
     </form>
   </div>
 </nav>
@@ -70,30 +75,35 @@
 
       <div class="bz80">
         <label style="color:#fecc18"><strong>ID: </strong></label>
-        <a>PROVA</a>
+        <a th:text="${session.viaggio['getIdViaggio']}"></a>
       </div>
 
       <div class="bz80" style="margin-top: 8%;">
         <label style="color:#fecc18"><strong>Destinazione: </strong></label>
-        <a>PROVA</a>
+        <a th:text="${session.viaggio['getDestinazione']}"></a>
       </div>
       <div class="bz80" style="margin-top: 8%;">
         <label style="color:#fecc18"><strong>Data e ora: </strong></label>
-        <a>PROVA</a>
+        <a th:text="${session.viaggio['getDataOraPartenza']}"></a>
+      </div>
+      <div class="bz80" style="margin-top: 8%;">
+        <label style="color:#fecc18"><strong>Stato: </strong></label>
+        <a th:if="${session.viaggio['isPrenotabile'] == true}"> Prenotazioni aperte</a>
+        <a th:if="${session.viaggio['isPrenotabile'] == false}"> Prenotazioni chiuse</a>
       </div>
     </div>
     <div style="margin-right: auto" class="col-md-4">
       <div class="bz80">
         <label style="color:#fecc18"><strong>Prezzo: </strong></label>
-        <a>PROVA</a>
+        <a th:text="${session.viaggio['getPrezzo']}"></a>
       </div>
       <div class="bz80" style="margin-top: 8%;">
         <label style="color:#fecc18"><strong>Posti per il viaggio: </strong></label>
-        <a>PROVA</a>
+        <a th:text="${session.viaggio['getPosti']}"></a>
       </div>
       <div class="bz80" style="margin-top: 8%;">
         <label style="color:#fecc18"><strong>Numero passeggeri: </strong></label>
-        <a>PROVA</a>
+        <a th:text="${session.viaggio['getListaPasseggeri'].size}"></a>
       </div>
     </div>
     <div class="col-md-4">
@@ -103,8 +113,11 @@
 </div>
 </div>
 
+<div id="conf-valutazione" style="display: none;">
 
-<div class="container-fluid" style="margin-top: 5%; margin-bottom: 5%;">
+</div>
+
+<div class="container-fluid" style="margin-top: 5%; margin-bottom: 5%;" th:if="${session.utenteLoggato.email != session.viaggio.getGuidatore.email}">
   <div class="row">
     <div class="col-md-5">
       <hr>
@@ -118,7 +131,7 @@
   </div>
 </div>
 
-<div class="table-responsive" style="margin-top: 5%;">
+<div class="table-responsive" style="margin-top: 5%;" th:if="${session.utenteLoggato.email != session.viaggio.getGuidatore.email}">
   <div class="center">
     <table class="table">
       <thead>
@@ -130,37 +143,37 @@
         <th scope="col">Media valutazione</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody th:with="guidatore = ${session.viaggio.getGuidatore}">
       <tr>
-        <td>Roberto</td>
-        <td>De Prisco</td>
-        <td>robedep@unisa.it</td>
+        <td th:text="${guidatore.nome}">Roberto</td>
+        <td th:text="${guidatore.cognome}">De Prisco</td>
+        <td th:text="${guidatore.email}">robedep@unisa.it</td>
         <td>
           <form class="rating rMB">
             <label>
-              <input type="radio" name="stars" value="1" />
+              <input type="radio" name="stars" value="1"/>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="2" />
-              <span class="icon">★</span>
-              <span class="icon">★</span>
-            </label>
-            <label>
-              <input type="radio" name="stars" value="3" />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="2">
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="4" />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="3">
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="5" />
+              <input type="radio" name="stars" value="4">
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+            </label>
+            <label>
+              <input type="radio" name="stars" value="5">
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
@@ -169,14 +182,15 @@
             </label>
           </form>
         </td>
-        <td>2</td>
+        <td th:if="${guidatore['getNumeroValutazioniGuidatore'] == 0}">0</td>
+        <td th:if="${guidatore['getNumeroValutazioniGuidatore'] > 0}" th:text="${guidatore['getSommaValutazioniGuidatore'] /  guidatore['getNumeroValutazioniGuidatore']}">2</td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<div class="container-fluid" style="margin-top: 5%; margin-bottom: 5%;">
+<div class="container-fluid" style="margin-top: 5%; margin-bottom: 5%;" th:if="${session.utenteLoggato['getEmail'] == session.viaggio.getGuidatore['getEmail']}">
   <div class="row">
     <div class="col-md-5">
       <hr>
@@ -190,9 +204,9 @@
   </div>
 </div>
 
-<div class="table-responsive" style="margin-top: 5%; min-height: 300px;">
-  <div class="center">
-    <table class="table">
+<div class="table-responsive" style="margin-top: 5%; min-height: 300px;" th:if="${session.utenteLoggato['getEmail'] == session.viaggio.getGuidatore['getEmail']}">
+  <div class="center" th:with="passeggeri = ${session.viaggio['getListaPasseggeri']}">
+    <table class="table" th:if="${passeggeri.size > 0}">
       <thead>
       <tr>
         <th scope="col">#</th>
@@ -203,12 +217,12 @@
         <th scope="col">Media valutazione</th>
       </tr>
       </thead>
-      <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Roberto</td>
-        <td>De Prisco</td>
-        <td>robedep@unisa.it</td>
+      <tbody th:each="p, iter : ${passeggeri}" th:with="counter = 0">
+      <tr th:with="counter = ${iter.index + 1}">
+        <th th:text="${counter}" scope="row">1</th>
+        <td th:text="${p['getNome']}">Roberto</td>
+        <td th:text="${p['getCognome']}">De Prisco</td>
+        <td th:text="${p['getEmail']}">robedep@unisa.it</td>
         <td>
           <form class="rating rMB">
             <label>
@@ -243,7 +257,8 @@
             </label>
           </form>
         </td>
-        <td>2</td>
+        <td th:if="${p['getNumeroValutazioniPasseggero'] == 0}">0</td>
+        <td th:if="${p['getNumeroValutazioniPasseggero'] > 0}" th:text="${p['getSommaValutazioniPasseggero'] / p['getNumeroValutazioniPasseggero']}">2</td>
       </tr>
       </tbody>
     </table>
@@ -257,7 +272,7 @@
   <div style="margin-top: 1%; margin-bottom: 1%;">
     <div class="row">
       <div class="col-4 col-sm-4 d-none d-lg-block">
-        <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../static/img/logoUniPassFooter.png"></a>
+        <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../img/logoUniPassFooter.png"></a>
       </div>
       <div class="col-4 col-sm-4" style="padding-bottom: 0%">
         <div><a style="padding: 1%; display: inline" class="list-group-item" href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp  CHI SIAMO</a></div>
@@ -273,8 +288,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../static/js/modVIs.js"></script>
-<script src="../static/js/rating.js"></script>
+<script src="../js/modVIs.js"></script>
+<script src="../js/rating.js"></script>
 
 </body>
 </html>
