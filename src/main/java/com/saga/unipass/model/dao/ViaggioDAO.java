@@ -27,26 +27,16 @@ public class ViaggioDAO {
                 throw new RuntimeException("ERROR --> INSERT viaggio.");
             }
 
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()) {
+                int id = rs.getInt(1);
+                viaggio.setIdViaggio(id);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-    }
-
-    public void doRemove(int idViaggio){
-
-        try(Connection connection = ConPool.getConnection()) {
-            PreparedStatement ps =
-                    connection.prepareStatement("DELETE FROM viaggio WHERE idViaggio = ?;");
-            ps.setInt(1, idViaggio);
-
-            if (ps.executeUpdate() != 1) {
-                throw new RuntimeException("ERROR --> DELETE viaggio.");
-            }
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
     }
 
 
@@ -167,6 +157,26 @@ public class ViaggioDAO {
         }
 
         return viaggio;
+    }
+
+    public Viaggio doRemove(int idViaggio){
+
+        Viaggio doRetrieve = doRetrieveById(idViaggio);
+
+        try(Connection connection = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    connection.prepareStatement("DELETE FROM viaggio WHERE idViaggio = ?;");
+            ps.setInt(1, idViaggio);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("ERROR --> DELETE viaggio.");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return doRetrieve;
     }
 
 }

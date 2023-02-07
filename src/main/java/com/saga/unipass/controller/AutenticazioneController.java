@@ -23,7 +23,7 @@ public class AutenticazioneController {
     }
 
     @RequestMapping("/storico-viaggi")
-    public String visualizzaStorico(Model model){
+    public String visualizzaStorico(){
         return "storicoViaggi.html";
     }
 

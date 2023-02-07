@@ -2,7 +2,6 @@ package com.saga.unipass.model.beans;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author SAGA
@@ -33,8 +32,7 @@ public class Viaggio {
         this.listaPasseggeri = new ArrayList<>();
     }
 
-    public Viaggio(int idViaggio, String destinazione, Date dataOraPartenza, int posti, double prezzo, Utente guidatore) {
-        this.idViaggio = idViaggio;
+    public Viaggio(String destinazione, Date dataOraPartenza, int posti, double prezzo, Utente guidatore) {
         this.destinazione = destinazione;
         this.dataOraPartenza = dataOraPartenza;
         this.posti = posti;
