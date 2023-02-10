@@ -13,9 +13,11 @@ public class PrenotazioneDAO {
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
-                    connection.prepareStatement("INSERT INTO partecipare VALUES (?,?)");
-            ps.setInt(1, idViaggio);
-            ps.setString(2, emailPasseggero);
+                    connection.prepareStatement("INSERT INTO partecipare VALUES (?,?);");
+
+
+            ps.setString(1, emailPasseggero);
+            ps.setInt(2, idViaggio);
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("ERROR --> INSERT partecipare.");
@@ -44,13 +46,13 @@ public class PrenotazioneDAO {
         }
     }
 
-    public void doClose(int idViaggio){
+    public void doUpdateStato(int idViaggio, boolean stato){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
                     connection.prepareStatement("UPDATE viaggio " +
-                            "SET prenotabile = ?" +
+                            "SET prenotabile = ? " +
                             "WHERE idViaggio = ?;");
-            ps.setBoolean(1, false);
+            ps.setBoolean(1, stato);
             ps.setInt(2, idViaggio);
 
             if (ps.executeUpdate() != 1) {
