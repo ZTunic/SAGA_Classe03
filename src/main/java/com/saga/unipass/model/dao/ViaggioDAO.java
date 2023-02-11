@@ -11,13 +11,13 @@ import java.util.Date;
 
 public class ViaggioDAO {
 
-    public void doSave(Viaggio viaggio){
+    public void doSave(Viaggio viaggio, String dataSave){
 
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =
-                    connection.prepareStatement("INSERT INTO viaggio VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("INSERT INTO viaggio(destinazione, dataOraPartenza, posti, prezzo, prenotabile, guidatore) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, viaggio.getDestinazione());
-            ps.setDate(2, (java.sql.Date) viaggio.getDataOraPartenza());
+            ps.setString(2, dataSave);
             ps.setInt(3, viaggio.getPosti());
             ps.setDouble(4, viaggio.getPrezzo());
             ps.setBoolean(5, true);
@@ -40,7 +40,7 @@ public class ViaggioDAO {
     }
 
 
-    public ArrayList<Viaggio> doSearch(String destinazione, Date dataOraPartenza, double prezzo){
+    public ArrayList<Viaggio> doSearch(String destinazione, String dataOraPartenza, double prezzo, String emailPrenotante){
 
         ArrayList<Viaggio> viaggi = new ArrayList<>();
 
@@ -48,13 +48,16 @@ public class ViaggioDAO {
             PreparedStatement ps =
                     connection.prepareStatement("SELECT * " +
                             "FROM viaggio " +
-                            "WHERE destinazione = ?;" +
-                            "AND dataOraPartenza = ?" +
-                            "AND prezzo <= ?");
+                            "WHERE destinazione = ? " +
+                            "AND dataOraPartenza >= ? " +
+                            "AND prezzo <= ? " +
+                            "AND guidatore != ? " +
+                            "AND prenotabile = true;");
 
             ps.setString(1, destinazione);
-            ps.setDate(2, (java.sql.Date) dataOraPartenza);
+            ps.setString(2, dataOraPartenza);
             ps.setDouble(3, prezzo);
+            ps.setString(4, emailPrenotante);
 
             ResultSet rs = ps.executeQuery();
 

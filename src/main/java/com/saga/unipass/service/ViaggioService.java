@@ -6,7 +6,6 @@ import com.saga.unipass.model.dao.ViaggioDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Service
 public class ViaggioService {
@@ -16,8 +15,8 @@ public class ViaggioService {
         viaggioDAO = new ViaggioDAO();
     }
 
-    public Viaggio creaViaggio(Viaggio viaggio){
-        viaggioDAO.doSave(viaggio);
+    public Viaggio creaViaggio(Viaggio viaggio, String dataSave){
+        viaggioDAO.doSave(viaggio, dataSave);
 
         return viaggioDAO.doRetrieveById(viaggio.getIdViaggio());
     }
@@ -26,8 +25,8 @@ public class ViaggioService {
         return viaggioDAO.doRemove(idViaggio);
     }
 
-    public ArrayList<Viaggio> cercaViaggio(String destinazione, Date dataOraPartenza, double prezzo){
-        return viaggioDAO.doSearch(destinazione, dataOraPartenza, prezzo);
+    public ArrayList<Viaggio> cercaViaggio(String destinazione, String dataOraPartenza, double prezzo, String emailPrenotante){
+        return viaggioDAO.doSearch(destinazione, dataOraPartenza, prezzo, emailPrenotante);
     }
 
     public void escludiPasseggero(int idViaggio, Utente passeggero){

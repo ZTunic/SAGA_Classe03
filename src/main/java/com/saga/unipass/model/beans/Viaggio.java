@@ -1,7 +1,8 @@
 package com.saga.unipass.model.beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  * @author SAGA
