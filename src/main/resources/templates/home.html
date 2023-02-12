@@ -21,6 +21,7 @@
         <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo']  == 'passeggero'}">
             <a class="list-group-item" href="/storico-viaggi"><i class="fa fa-history button-icon" aria-hidden="true"></i>&nbsp; STORICO VIAGGI</a>
             <a class="list-group-item" href="/pagina-utente-passeggero"><i class="fa fa-user-o button-icon" aria-hidden="true"></i>&nbsp; PROFILO</a>
+            <a class="list-group-item" href="/logout"><i class="fa fa-sign-out button-icon" aria-hidden="true"></i>&nbsp; ESCI</a>
         </form>
         <!-- CLAUSOLA ELSE -->
         <form class="d-flex center_mob" th:if="${session.utenteLoggato['getTipo'] == 'guidatore'}">
@@ -41,10 +42,11 @@
                     <a href="/home" style="color:#ffffff" class="nav-link testo_nav" aria-current="page"><i class="fa fa-home"></i><span> HOME</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a th:if="${session.utenteLoggato['getVeicolo'] != null}" href="/crea-viaggio-page" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a th:if="${session.utenteLoggato['getVeicolo'] == null}" href="/pagina-utente-passeggero" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
+                    <a href="/cerca-viaggio-page" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
                 </li>
             </ul>
         </div>
@@ -57,8 +59,14 @@
 <div class="container-fluid">
     <div style="text-align:center">
         <h2 style="font-weight:bold;">Ciao <span th:text="${session.utenteLoggato['getNome']}"></span>, inizia la tua esperienza da qui!</h2>
-        <button class="btn btn-primary button_width_home" type="submit">CREA<br>VIAGGIO</button>
-        <button class="btn btn-primary button_width_home" type="submit">CERCA<br>VIAGGI</button>
+
+        <!-- AGGIUSTARE STILE -->
+        <form action="/crea-viaggio-page" method="get">
+            <button class="btn btn-primary button_width_home" type="button">CREA<br>VIAGGIO</button>
+        </form>
+        <form action="/cerca-viaggio-page" method="get">
+            <button class="btn btn-primary button_width_home" type="button">CERCA<br>VIAGGI</button>
+        </form>
     </div>
 </div>
 <hr class="spacer">

@@ -43,10 +43,11 @@
                     <a href="/home" style="color:#ffffff" class="nav-link testo_nav" aria-current="page"><i class="fa fa-home"></i><span> HOME</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a th:if="${session.utenteLoggato['getVeicolo'] != null}" href="/crea-viaggio-page" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a th:if="${session.utenteLoggato['getVeicolo'] == null}" href="/pagina-utente-passeggero" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
+                    <a href="/cerca-viaggio-page" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
                 </li>
             </ul>
         </div>
@@ -118,7 +119,7 @@
     <div class="row">
         <div class="col-md-8">
 
-            <h3 style="margin-left: 7%" class="list-group-item" href="#"><img class="button-icon profile-size user-icon" src="../img/steeringwheel-icon.png">&nbsp <strong>Fiat Panda</strong></h3>
+            <h3 style="margin-left: 7%" class="list-group-item" href="#"><img class="button-icon profile-size user-icon" src="../img/steeringwheel-icon.png">&nbsp <strong>Veicolo</strong></h3>
         </div>
         <div class="col-md-4 bz80" style="padding-top: 3%;">
             <a id="testoModificaVeicolo" href="#" data-toggle="collapse" onclick="modificaVisibilitaVeicolo()" style="font-size: 90% !important;" class="list-group-item profile-action"><i class="bi bi-pencil" aria-hidden="true"></i>&nbsp  Modifica veicolo</a>

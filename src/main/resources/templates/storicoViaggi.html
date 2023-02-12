@@ -43,10 +43,11 @@
                     <a href="/home" style="color:#ffffff" class="nav-link testo_nav" aria-current="page"><i class="fa fa-home"></i><span> HOME</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav tbS"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a th:if="${session.utenteLoggato['getVeicolo'] != null}" href="/crea-viaggio-page" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
+                    <a th:if="${session.utenteLoggato['getVeicolo'] == null}" href="/pagina-utente-passeggero" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" style="color:#ffffff" class="nav-link testo_nav tbS" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
+                    <a href="/cerca-viaggio-page" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
                 </li>
             </ul>
         </div>
@@ -78,6 +79,7 @@
                 <th scope="col">Costo</th>
                 <th scope="col">Nr.passeggeri</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -93,6 +95,12 @@
                         <button class="btn btn-primary btn-storico" type="submit">DETTAGLI</button>
                 </form>
                 </td>
+                <td th:if="${session.utenteLoggato['getEmail'] == v['getGuidatore']['getEmail']}" >
+                    <form action="/modifica-stato-prenotazioni" method="get">
+                        <input type="hidden" name="idViaggio" th:value="${v['getIdViaggio']}">
+                        <button th:if="${v['isPrenotabile'] == true}" class="btn btn-primary btn-storico" type="submit">CHIUDI<br>PRENOTAZIONI</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -100,6 +108,10 @@
         <h2 th:if="${viaggio.size == 0}"> Non hai ancora effettuato un viaggio</h2>
     </div>
 </div>
+
+<form id="logout">
+    <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <u>Esci</u></a>
+</form>
 
 <footer style="clear: both; position: absolute; height: 80px;" class="center">
     <div style="margin-top: 1%; margin-bottom: 1%;">

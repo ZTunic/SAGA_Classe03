@@ -17,6 +17,8 @@ footer img{padding-right: 50% !important; padding-top: 2%}
     border-radius: 40px !important;
     transition: all 0.3s ease 0s !important;
 }
+.btn-storico{width: 50% !important;}
+.btn-dettagli{width: 65% !important;}
 
 .btn-primary:hover{
     background-color: #f4c305 !important; /*PER FARE OVERRIDE BISOGNA AGGIUNGERE "!important" */
@@ -185,6 +187,17 @@ a.list-group-item:hover > .button-icon {
     color: #000 !important; text-shadow: 0 0 5px #FECC18 !important;
 }
 
+/* FORM DI RICERCA VIAGGIO */
+
+.cvFormBackground{height:100%;
+    background-color: #f4c305 !important;
+    -o-background-size: cover !important; -moz-background-size: cover !important;
+    background-position: center center !important; position:relative !important;;}
+
+.cvForm{min-height: 800px !important; width: 100% !important;}
+
+.cvButton{max-width: 10% !important;}
+
 .rMB{font-size: 100% !important;}
 
 /* COVER */
@@ -202,6 +215,7 @@ a.list-group-item:hover > .button-icon {
 
 @media only screen and (min-width: 320px) and (max-width: 374px){
     .btn-storico{width: 100% !important;}
+    .btn-dettagli{width: 100% !important;}
     h2{font-size:100% !important;}
     .navbar-brand{display: none !important;}
     #register-button {width: 120px !important; height: 34px !important; font-size:15px !important;}
@@ -219,10 +233,12 @@ a.list-group-item:hover > .button-icon {
     .dn{display: none !important;}
     .db{text-align:center !important; margin:auto !important; display:block !important; margin-left: 20% !important; padding-top: 5% !important;}
     #logout{font-size: 110% !important;}
-}
+    .cvButton{max-width: 50% !important;}
+} /* CHIUDO IL RESPONSIVE */
 
 @media only screen and (min-width: 375px) and (max-width: 767px) {
     .btn-storico{width: 100% !important;}
+    .btn-dettagli{width: 100% !important;}
     h2{font-size:100% !important;}
     .navbar-brand{display: none !important;}
     #register-button {width: 120px !important; height: 34px !important; font-size:15px !important;}
@@ -238,11 +254,13 @@ a.list-group-item:hover > .button-icon {
     list-group-item a{font-size: 20% !important;}
     .bz80{font-size: 80% !important; text-align: center !important; margin-top: 1% !important;}
     #logout{font-size: 120% !important;}
+    .cvButton{max-width: 50% !important;}
 } /* CHIUDO IL RESPONSIVE */
 
 /* RESPONSIVE PER LA FASCIA 992px - 1023px*/
 @media only screen and (min-width: 992px) and (max-width: 1024px) {
     .btn-storico{width: 100% !important;}
+    .btn-dettagli{width: 100% !important;}
     footer p {
         display: contents;
     }
@@ -251,6 +269,7 @@ a.list-group-item:hover > .button-icon {
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .btn-storico{width: 100% !important;}
+    .btn-dettagli{width: 100% !important;}
     h2{font-size:100% !important;}
     .btn-primary{margin-left: 5% !important; margin-right: 5% !important;}
     .button_width_home{width: 15% !important; font-size: 90% !important;}
