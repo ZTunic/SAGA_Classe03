@@ -106,10 +106,8 @@
         <a th:text="${session.viaggio['getListaPasseggeri'].size}"></a>
       </div>
     </div>
-    <div th:if="${session.utenteLoggato['getEmail'] == session.viaggio['getGuidatore']['getEmail']}" class="col-md-4" style="padding-left: 5%">
-      <a id="testoModificaProfilo" th:href="@{'/elimina-viaggio'(idViaggio=${session.viaggio['getIdViaggio']})}" style="font-size: 90% !important; color:red !important;" class="list-group-item profile-action" href="#">
-        <i class="bi bi-trash" aria-hidden="true"></i>&nbsp  Elimina viaggio
-      </a>
+    <div class="col-md-4">
+
     </div>
   </div>
 </div>
@@ -140,7 +138,7 @@
       <tr>
         <th scope="col">Nome</th>
         <th scope="col">Cognome</th>
-        <th scope="col">Email</th>
+        <th scope="col">E-mail</th>
         <th scope="col">Valuta guidatore</th>
         <th scope="col">Media valutazione</th>
       </tr>
@@ -151,44 +149,37 @@
         <td th:text="${guidatore.cognome}">De Prisco</td>
         <td th:text="${guidatore.email}">robedep@unisa.it</td>
         <td>
-
-          <form action="/valuta-guidatore" method="post">
-            <div class="rating rMB">
+          <form class="rating rMB">
             <label>
-              <input type="radio" name="valutazione" value="1"/>
+              <input type="radio" name="stars" value="1"/>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="valutazione" value="2">
-              <span class="icon">★</span>
-              <span class="icon">★</span>
-            </label>
-            <label>
-              <input type="radio" name="valutazione" value="3">
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="2">
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="valutazione" value="4">
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="3">
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="valutazione" value="5">
+              <input type="radio" name="stars" value="4">
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+            </label>
+            <label>
+              <input type="radio" name="stars" value="5">
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
-            </div>
-
-            <input type="hidden" name="idViaggio" th:value="${session.viaggio['getIdViaggio']}">
-            <button type="submit" name="valuta">OK</button>
-
           </form>
         </td>
         <td th:if="${guidatore['getNumeroValutazioniGuidatore'] == 0}">0</td>
@@ -236,7 +227,6 @@
         <td>
           <form action="/valuta-passeggero" method="post" >
             <div class="rating rMB">
-
               <label>
                 <input type="radio" name="valutazione" value="1" />
                 <span class="icon">★</span>
@@ -276,21 +266,17 @@
         <td th:if="${p['getNumeroValutazioniPasseggero'] == 0}">0</td>
         <td th:if="${p['getNumeroValutazioniPasseggero'] > 0}" th:text="${p['getSommaValutazioniPasseggero'] / p['getNumeroValutazioniPasseggero']}">2</td>
         <td>
-        <form action="/escludi-passeggero" method="post">
-          <input type="hidden" name="idViaggio" th:value="${session.viaggio['getIdViaggio']}">
-          <input type="hidden" name = "emailPasseggero" th:value="${p['getEmail']}">
-          <button class="btn btn-primary btn-dettagli" type="submit">ESCLUDI<br>PASSEGGERO</button>
-        </form>
+          <form action="/escludi-passeggero" method="post">
+            <input type="hidden" name="idViaggio" th:value="${session.viaggio['getIdViaggio']}">
+            <input type="hidden" name = "emailPasseggero" th:value="${p['getEmail']}">
+            <button class="btn btn-primary btn-dettagli" type="submit">ESCLUDI<br>PASSEGGERO</button>
+          </form>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-<form id="logout">
-  <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <u>Esci</u></a>
-</form>
 
 <footer style="clear: both; position: relative; height: 80px;" class="center">
   <div style="margin-top: 1%; margin-bottom: 1%;">
@@ -312,7 +298,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../js/modVis.js"></script>
+<script src="../js/modVIs.js"></script>
 
 </body>
 </html>

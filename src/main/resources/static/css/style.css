@@ -1,18 +1,49 @@
-body {font-family: 'Montserrat' !important;}
-footer {background-color: #3d3e3e !important; color:#ffffff; width: 100%; overflow: hidden}
-footer p{padding-left: 50% !important; font-size: 85%;padding-top: 2%;}
-footer img{padding-right: 50% !important; padding-top: 2%}
+body {
+    font-family: 'Montserrat' !important;
+}
+
+footer {
+    background-color: #3d3e3e !important;
+    color:#ffffff !important;
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+footer p {
+    padding-left: 50% !important;
+    font-size: 85%;
+    padding-top: 2%;
+}
+
+footer img {
+    padding-top: 2% !important;
+}
 
 /* PROPRIETA' DA RIUTILIZZARE */
 
-.hidden{display: none !important;}
-.spacer{height: 2px; border:none;}
-.center{text-align:center !important; margin:auto !important; display:block !important;}
+.hidden {
+    display: none !important;
+}
 
-.btn-primary{margin-left: 2% !important; margin-right: 2% !important; width: 40% !important;
-    font-weight:bold !important; background-color: #3d3e3e !important;
+.spacer {
+    height: 2px;
+    border: none;
+}
+
+.center {
+    text-align: center !important;
+    margin: auto !important;
+    display: block !important;
+}
+
+.btn-primary {
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+    width: 40% !important;
+    font-weight: bold !important;
+    background-color: #3d3e3e !important;
     color: #ffffff !important;
-    border:2px solid #f4c305 !important;
+    border: 2px solid #f4c305 !important;
     line-height: 15px !important;
     border-radius: 40px !important;
     transition: all 0.3s ease 0s !important;
@@ -20,20 +51,23 @@ footer img{padding-right: 50% !important; padding-top: 2%}
 .btn-storico{width: 50% !important;}
 .btn-dettagli{width: 65% !important;}
 
-.btn-primary:hover{
-    background-color: #f4c305 !important; /*PER FARE OVERRIDE BISOGNA AGGIUNGERE "!important" */
+.btn-primary:hover {
+    background-color: #f4c305 !important;
     color: #ffffff !important;
-    border:2px solid #3d3e3e !important;
+    border: 2px solid #3d3e3e !important;
 }
 
-.button_width_home{
+.button_width_home {
     width: 10% !important;
 }
 
-.testo_nav{font-size:90% !important; margin-left:20px !important;}
+.testo_nav {
+    font-size: 90% !important;
+    margin-left: 20px !important;
+}
 
-.nav-link:hover{
-    color: #f4c305 !important; /*PER FARE OVERRIDE BISOGNA AGGIUNGERE "!important" */
+.nav-link:hover {
+    color: #f4c305 !important;
 }
 
 .button-icon {
@@ -52,46 +86,52 @@ footer img{padding-right: 50% !important; padding-top: 2%}
     line-height: 100px !important;
 }
 
-.profile-action{
+.profile-action {
     padding: 1% !important;
     display: inline !important;
     color:#2fa1fe !important;
-    font-size: 90% !important
+    font-size: 90% !important;
 }
 
 .user-icon {
     padding: 2%;
 }
 
-.form-text a{
-    text-decoration:none;
+.form-text a {
+    text-decoration: none;
 }
 
-.a{
-    text-decoration:none;
+.a {
+    text-decoration: none;
 }
 
-.img-fluid{
-    margin-left:29% !important;
+.img-fluid {
+    margin-left: 29% !important;
     max-width: 45% !important;
 }
-.liS{font-size: 100% !important;}
+.liS {
+    font-size: 100% !important;
+}
 
-a.list-group-item {margin-right:8px !important;font-size:80% !important; transition: all .3s ease-in-out !important; }
+a.list-group-item {
+    margin-right: 8px !important;
+    font-size: 80% !important;
+    transition: all .3s ease-in-out !important;
+}
 
 a.list-group-item:hover {
     color: #FECC18;
     text-shadow: 1px 1px black;
-    transition: all .3s ease-in-out;
+}
 
+a.list-group-item > .button-icon {
+    transition: background-color .3s ease-in-out;
 }
 
 a.list-group-item:hover > .button-icon {
     background-color: #3d3e3e;
     transition: background-color .3s ease-in-out;
 }
-
-/* BOTTONE */
 
 #register-button {
     margin-top: 3%;
@@ -130,16 +170,20 @@ a.list-group-item:hover > .button-icon {
     color: red;
 }
 
-/* RATING */
-
 .rating {
-    display: inline-block !important; position: relative !important; height: 50px !important;
-    line-height: 50px !important; font-size: 40px !important;
+    display: inline-block !important;
+    position: relative !important;
+    height: 50px !important;
+    line-height: 50px !important;
+    font-size: 40px !important;
 }
 
 .rating label {
-    position: absolute !important; top: 0 !important; left: 0 !important;
-    height: 100% !important; cursor: pointer !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100% !important;
+    cursor: pointer !important;
 }
 
 .rating label:last-child {
@@ -167,11 +211,15 @@ a.list-group-item:hover > .button-icon {
 }
 
 .rating label input {
-    position: absolute !important; top: 0 !important; left: 0 !important; opacity: 0 !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 0 !important;
 }
 
 .rating label .icon {
-    float: left !important; color: transparent !important;
+    float: left !important;
+    color: transparent !important;
 }
 
 .rating label:last-child .icon {
@@ -184,36 +232,62 @@ a.list-group-item:hover > .button-icon {
 }
 
 .rating label input:focus:not(:checked) ~ .icon:last-child {
-    color: #000 !important; text-shadow: 0 0 5px #FECC18 !important;
+    color: #000 !important;
+    text-shadow: 0 0 5px #FECC18 !important;
 }
 
 /* FORM DI RICERCA VIAGGIO */
 
-.cvFormBackground{height:100%;
+.cvFormBackground {
+    height: 100%;
     background-color: #f4c305 !important;
-    -o-background-size: cover !important; -moz-background-size: cover !important;
-    background-position: center center !important; position:relative !important;;}
+    -o-background-size: cover !important;
+    -moz-background-size: cover !important;
+    background-position: center center !important;
+    position:relative !important;
+}
 
-.cvForm{min-height: 800px !important; width: 100% !important;}
+.cvForm {
+    min-height: 800px !important;
+    width: 100% !important;
+}
 
-.cvButton{max-width: 10% !important;}
+.cvButton {
+    max-width: 10% !important;
+}
 
-.rMB{font-size: 100% !important;}
+.rMB {
+    font-size: 100% !important;
+}
 
 /* COVER */
-.w-100{height:595px !important;background-size: cover !important; -o-background-size: cover !important;
-    -moz-background-size: cover !important; background-position: center center !important; position:relative !important;}
-.d-md-block{height:85% !important;}
+.w-100 {
+    height: 595px !important;
+    background-size: cover !important;
+    -o-background-size: cover !important;
+    -moz-background-size: cover !important;
+    background-position: center center !important;
+    position: relative !important;
+}
+
+.d-md-block {
+    height: 85% !important;
+}
 
 /* ANIMAZIONI */
 
-.fade-in {animation: fadeIn ease 1s;}
+.fade-in {
+    animation: fadeIn ease 1s;
+}
 
-@keyframes fadeIn {0% {opacity:0;} 100% {opacity:1;}}
+@keyframes fadeIn {
+    0% {opacity:0;} 100% {opacity:1;}
+}
 
 /* RESPONSIVE PER MOBILE*/
 
 @media only screen and (min-width: 320px) and (max-width: 374px){
+    footer img{padding-right: 50% !important;}
     .btn-storico{width: 100% !important;}
     .btn-dettagli{width: 100% !important;}
     h2{font-size:100% !important;}
@@ -227,7 +301,7 @@ a.list-group-item:hover > .button-icon {
     .img-fluid{margin-left:16% !important; max-width: 70% !important;}
     .testo_nav{font-size:90% !important; margin-left:0 !important;}
     .float_button{position:relative !important;}
-    footer p{padding-right: 5%; font-size: 50%;}
+    footer p{padding-right: 5% !important; font-size: 50% !important;}
     list-group-item a{font-size: 20% !important;}
     .bz80{font-size: 80% !important; text-align: center !important; margin-top: 1% !important;}
     .dn{display: none !important;}
@@ -250,7 +324,7 @@ a.list-group-item:hover > .button-icon {
     .img-fluid{margin-left:16% !important; max-width: 70% !important;}
     .testo_nav{font-size:90% !important; margin-left:0 !important;}
     .float_button{position:relative !important;}
-    footer p{padding-right: 5%; font-size: 50%;}
+    footer p{padding-right: 5% !important; font-size: 50% !important;}
     list-group-item a{font-size: 20% !important;}
     .bz80{font-size: 80% !important; text-align: center !important; margin-top: 1% !important;}
     #logout{font-size: 120% !important;}
@@ -262,7 +336,7 @@ a.list-group-item:hover > .button-icon {
     .btn-storico{width: 100% !important;}
     .btn-dettagli{width: 100% !important;}
     footer p {
-        display: contents;
+        display: contents !important;
     }
 }
 /* RESPONSIVE PER TABLET*/
@@ -288,6 +362,5 @@ a.list-group-item:hover > .button-icon {
 
 @media only screen and (min-width: 1024px) and (max-width: 1440px) {
     footer p{padding-left:5% !important;}
-    footer img{padding-right:5% !important;}
 
 } /* CHIUDO IL RESPONSIVE */

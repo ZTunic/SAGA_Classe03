@@ -48,7 +48,7 @@ public class ValutazioneController {
 
         model.addAttribute("utenteLoggato", utente);
 
-        valutazioneService.valutaGuidatore(guidatore, num, somma, utente.getEmail(), Integer.parseInt(idViaggio));
+        valutazioneService.valutaGuidatore(guidatore, num, somma);
 
         return "redirect:/dettagli-viaggio?idViaggio="+Integer.parseInt(idViaggio);
     }

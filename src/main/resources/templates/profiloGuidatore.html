@@ -62,7 +62,8 @@
             <h3 style="margin-left: 7%" class="list-group-item" href="#"><img class="button-icon profile-size user-icon" src="../img/user-icon.png">&nbsp <strong th:text="${session.utenteLoggato['getNome']}">Mario Rossi</strong></h3>
         </div>
         <div class="col-md-4 bz80" style="padding-top: 3%;">
-            <a id="testoModificaProfilo" onclick="modificaVisibilitaProfilo()" style="font-size: 90% !important;" class="list-group-item profile-action" href="#"><i class="bi bi-pencil" aria-hidden="true"></i>&nbsp  Modifica profilo</a>
+            <a id="modificaProfilo" onclick="modificaVisibilitaProfilo()" style="font-size: 90% !important;" class="list-group-item profile-action" href="#"><i class="bi bi-pencil" aria-hidden="true"></i>&nbsp  Modifica profilo</a>
+            <a id="annullaModificaProfilo" onclick="modificaVisibilitaProfilo()" style="font-size: 90% !important;" class="list-group-item profile-action d-none" href="#"><i class="fa fa-close" aria-hidden="true"></i>&nbsp Chiudi pannello modifica</a>
         </div>
     </div>
 </div>
@@ -76,8 +77,8 @@
                     <input name="nome" class="campiProfVis" style="border: none;max-width: 50%;" id="nomeID" type="text" th:value="${session.utenteLoggato['getNome']}" readonly>
                 </div>
                 <div class="bz80" style="margin-top: 8%;">
-                    <label for="emailID" style="color:#fecc18"><strong>Email: </strong></label>
-                    <input name="email" class="campiProfVis" style="border: none;max-width: 50%;" id="emailID" type="text" th:value="${session.utenteLoggato['getEmail']}" readonly>
+                    <label for="emailID" style="color:#fecc18"><strong>E-mail: </strong></label>
+                    <input name="email" class="campiProfVis" style="border: none;max-width: 100%;;width:80%" id="emailID" type="text" th:value="${session.utenteLoggato['getEmail']}" readonly>
                 </div>
                 <div class="bz80" style="margin-top: 8%;">
                     <label for="telefonoID" style="color:#fecc18"><strong>Numero di telefono: </strong></label>
@@ -122,7 +123,8 @@
             <h3 style="margin-left: 7%" class="list-group-item" href="#"><img class="button-icon profile-size user-icon" src="../img/steeringwheel-icon.png">&nbsp <strong>Veicolo</strong></h3>
         </div>
         <div class="col-md-4 bz80" style="padding-top: 3%;">
-            <a id="testoModificaVeicolo" href="#" data-toggle="collapse" onclick="modificaVisibilitaVeicolo()" style="font-size: 90% !important;" class="list-group-item profile-action"><i class="bi bi-pencil" aria-hidden="true"></i>&nbsp  Modifica veicolo</a>
+            <a id="modificaVeicolo" href="#" data-toggle="collapse" onclick="modificaVisibilitaVeicolo()" style="font-size: 90% !important;" class="list-group-item profile-action"><i class="bi bi-pencil" aria-hidden="true"></i>&nbsp  Modifica veicolo</a>
+            <a id="annullaModificaVeicolo" onclick="modificaVisibilitaVeicolo()" style="font-size: 90% !important;" class="list-group-item profile-action d-none" href="#"><i class="fa fa-close" aria-hidden="true"></i>&nbsp Chiudi pannello modifica</a>
             <a style="font-size: 90% !important;" class="list-group-item profile-action" href="/rimuovi-veicolo"><i class="bi bi-trash-fill" aria-hidden="true"></i>&nbsp Rimuovi veicolo</a>
         </div>
     </div>
@@ -166,18 +168,19 @@
     <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <u>Esci</u></a>
 </form>
 
-<footer style="clear: both; position: relative; height: 80px;" class="center">
+<footer style="clear: both; position: absolute; height: 80px;" class="center">
     <div style="margin-top: 1%; margin-bottom: 1%;">
         <div class="row">
-            <div class="col-4 col-sm-4 d-none d-lg-block">
-                <a class="navbar-brand center_mob" href="/home"><img class="img-responsive" src="../img/logoUniPassFooter.png"></a>
+            <div class="col-4 col-sm-4 d-none d-lg-block center_mob">
+                <a class="navbar-brand" href="/home"><img class="img-responsive" src="../img/logoUniPassFooter.png"></a>
             </div>
-            <div class="col-4 col-sm-4" style="padding-bottom: 0%">
+            <a class="navbar-brand db" style="display:none;" href="/home"><img class="img-responsive" src="../img/logoUniPassFooter.png"></a>
+            <div class="col-4 col-sm-4 dn" style="padding-bottom: 0%">
                 <div><a style="padding: 1%; display: inline" class="list-group-item" href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp  CHI SIAMO</a></div>
                 <div><a style="padding: 1%; display: inline" class="list-group-item" href="#"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp CONTATTI</a></div>
             </div>
             <div class="col-4 col-sm-4 d-md-none d-block"></div>
-            <div style="text-align: center" class="col-4 col-sm-4">
+            <div style="text-align: center" class="col-4 col-sm-4 dn">
                 <p>©Copyright 2023<br>S.A.G.A.</p>
             </div>
         </div>

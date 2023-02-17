@@ -11,13 +11,13 @@ public class ValutazioneService {
         valutazioneDAO = new ValutazioneDAO();
     }
 
-    public void valutaGuidatore(Utente guidatore, int num, int somma, String emailValutatore, int idViaggio){
+    public void valutaGuidatore(Utente guidatore, int num, int somma){
 
-        valutazioneDAO.doValutaGuidatore(guidatore, num, somma, emailValutatore, idViaggio);
+        valutazioneDAO.doValutaGuidatore(guidatore, num, somma);
     }
 
     public void valutaPasseggero(Utente passeggero, int num, int somma, int idViaggio){
 
-        valutazioneDAO.doValutaPasseggero(passeggero, num, somma, idViaggio);
+        valutazioneDAO.doValutaPasseggero(passeggero, num, somma);
     }
 }
