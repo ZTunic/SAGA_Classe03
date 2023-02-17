@@ -1,7 +1,8 @@
-package com.saga.unipass.service;
+package com.saga.unipass.prenotazione.service;
 
 import com.saga.unipass.model.beans.Viaggio;
-import com.saga.unipass.model.dao.PrenotazioneDAO;
+import com.saga.unipass.dao.PrenotazioneDAO;
+import com.saga.unipass.viaggio.service.ViaggioService;
 import org.springframework.stereotype.Service;
 
 /**

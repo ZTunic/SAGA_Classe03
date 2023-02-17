@@ -1,6 +1,7 @@
-package com.saga.unipass.model.dao;
+package com.saga.unipass.dao;
 
 
+import com.saga.unipass.dao.AutenticazioneDAO;
 import com.saga.unipass.model.ConPool;
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;

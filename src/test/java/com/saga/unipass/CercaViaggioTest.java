@@ -1,6 +1,6 @@
 package com.saga.unipass;
 
-import com.saga.unipass.controller.ViaggioController;
+import com.saga.unipass.viaggio.controller.ViaggioController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

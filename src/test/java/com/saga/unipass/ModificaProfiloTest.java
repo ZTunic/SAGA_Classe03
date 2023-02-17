@@ -1,6 +1,6 @@
 package com.saga.unipass;
 
-import com.saga.unipass.controller.AutenticazioneController;
+import com.saga.unipass.autenticazione.controller.AutenticazioneController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

@@ -1,9 +1,9 @@
-package com.saga.unipass.controller;
+package com.saga.unipass.viaggio.controller;
 
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Veicolo;
 import com.saga.unipass.model.beans.Viaggio;
-import com.saga.unipass.service.ViaggioService;
+import com.saga.unipass.viaggio.service.ViaggioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

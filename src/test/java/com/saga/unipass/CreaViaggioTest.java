@@ -1,6 +1,6 @@
 package com.saga.unipass;
 
-import com.saga.unipass.controller.ViaggioController;
+import com.saga.unipass.viaggio.controller.ViaggioController;
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Veicolo;
 import org.junit.jupiter.api.BeforeAll;

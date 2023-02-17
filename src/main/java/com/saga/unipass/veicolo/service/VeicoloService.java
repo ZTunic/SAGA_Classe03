@@ -1,8 +1,8 @@
-package com.saga.unipass.service;
+package com.saga.unipass.veicolo.service;
 
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Veicolo;
-import com.saga.unipass.model.dao.VeicoloDAO;
+import com.saga.unipass.dao.VeicoloDAO;
 import org.springframework.stereotype.Service;
 
 /**

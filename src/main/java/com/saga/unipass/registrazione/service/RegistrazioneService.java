@@ -1,7 +1,7 @@
-package com.saga.unipass.service;
+package com.saga.unipass.registrazione.service;
 
 import com.saga.unipass.model.beans.Utente;
-import com.saga.unipass.model.dao.DAOFacade;
+import com.saga.unipass.dao.DAOFacade;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,4 +1,4 @@
-package com.saga.unipass.model.dao;
+package com.saga.unipass.dao;
 
 import com.saga.unipass.model.ConPool;
 

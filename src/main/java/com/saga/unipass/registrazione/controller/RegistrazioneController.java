@@ -1,7 +1,7 @@
-package com.saga.unipass.controller;
+package com.saga.unipass.registrazione.controller;
 
 import com.saga.unipass.model.beans.Utente;
-import com.saga.unipass.service.RegistrazioneService;
+import com.saga.unipass.registrazione.service.RegistrazioneService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
-package com.saga.unipass.service;
+package com.saga.unipass.valutazione.service;
 
 import com.saga.unipass.model.beans.Utente;
-import com.saga.unipass.model.dao.ValutazioneDAO;
+import com.saga.unipass.dao.ValutazioneDAO;
 
 /**
  * Implementa il service relativo al sottosistema Valutazione

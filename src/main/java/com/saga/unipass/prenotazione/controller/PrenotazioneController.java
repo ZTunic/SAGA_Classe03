@@ -1,8 +1,8 @@
-package com.saga.unipass.controller;
+package com.saga.unipass.prenotazione.controller;
 
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;
-import com.saga.unipass.service.PrenotazioneService;
+import com.saga.unipass.prenotazione.service.PrenotazioneService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

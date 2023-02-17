@@ -1,8 +1,8 @@
-package com.saga.unipass.service;
+package com.saga.unipass.viaggio.service;
 
 import com.saga.unipass.model.beans.Utente;
 import com.saga.unipass.model.beans.Viaggio;
-import com.saga.unipass.model.dao.ViaggioDAO;
+import com.saga.unipass.dao.ViaggioDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
