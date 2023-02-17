@@ -7,8 +7,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Implementa il DAO relativo alla prenotazione
+ */
 public class PrenotazioneDAO {
 
+    /**
+     * Implementa la funzionalità di salvataggio di una prenotazione nel database
+     * @param idViaggio L'id del Viaggio
+     * @param emailPasseggero L'email del Passeggero
+     * @throws RuntimeException Se l'inserimento non è andato a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doSave(int idViaggio, String emailPasseggero){
 
         try(Connection connection = ConPool.getConnection()){
@@ -29,6 +39,13 @@ public class PrenotazioneDAO {
 
     }
 
+    /**
+     * Implementa la funzionalità di rimozione di una prenotazione dal database
+     * @param idViaggio L'id del Viaggio
+     * @param emailPasseggero L'email del Passeggero
+     * @throws RuntimeException Se la cancellazione non è andata a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doRemove(int idViaggio, String emailPasseggero){
 
         try(Connection connection = ConPool.getConnection()) {
@@ -46,6 +63,13 @@ public class PrenotazioneDAO {
         }
     }
 
+    /**
+     * Implementa la funzionalità di chiusura delle prenotazioni
+     * @param idViaggio L'id del Viaggio
+     * @param stato lo stato del Viaggio
+     * @throws RuntimeException Se la modifica non è andata a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doUpdateStato(int idViaggio, boolean stato){
         try(Connection connection = ConPool.getConnection()){
             PreparedStatement ps =

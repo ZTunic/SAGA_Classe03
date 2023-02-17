@@ -11,8 +11,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Implementa il DAO relativo all'autenticazione
+ */
 public class AutenticazioneDAO {
 
+    /**
+     * Implementa la funzionalità di salvare un Utente nel database
+     * @param utente L'Utente da salvare
+     * @throws RuntimeException Se l'inserimento non è andato a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doSave(Utente utente){
         try(Connection connection = ConPool.getConnection()){
 
@@ -42,6 +51,13 @@ public class AutenticazioneDAO {
         }
     }
 
+    /**
+     * Implementa la funzionalità di ricerca di un Utente in base alla sua email
+     * @param email
+     * @return utente Se l'Utente è stato trovato
+     * null Se l'Utente non è stato trovato
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public Utente doRetrieveByEmail(String email){
         Utente utente = new Utente();
 
@@ -77,6 +93,14 @@ public class AutenticazioneDAO {
         return utente;
     }
 
+    /**
+     * Implementa la funzionalità di ricerca di un Utente in base all'email e alla password
+     * @param email L'email dell'Utente
+     * @param password La password dell'Utente
+     * @return utente Se l'Utente è stato trovato
+     * null Se l'Utente non è stato trovato
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public Utente doRetrieveByCredentials(String email, String password){
         Utente utente = new Utente();
 
@@ -127,6 +151,12 @@ public class AutenticazioneDAO {
         return utente;
     }
 
+    /**
+     * Implementa la funzionalità di ricercare tutti i viaggi creati da parte di un Guidatore
+     * @param email l'email del Guidatore
+     * @return doRetrieve La lista dei viaggi creati dal Guidatore
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public ArrayList<Viaggio> doRetrieveViaggiCreati(String email){
 
         ArrayList<Viaggio> doRetrieve = new ArrayList<>();
@@ -169,6 +199,12 @@ public class AutenticazioneDAO {
         return doRetrieve;
     }
 
+    /**
+     * Implementa la funzionalità di ricerca di tutti i viaggi a cui un Passeggero ha partecipato
+     * @param email L'email del Passeggero
+     * @return viaggi La lista dei Viaggi a cui il Passeggero ha partecipato
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public ArrayList<Viaggio> doRetrieveViaggiPartecipati(String email){
 
         ArrayList<Viaggio> viaggi = new ArrayList<>();
@@ -211,6 +247,13 @@ public class AutenticazioneDAO {
         return viaggi;
     }
 
+    /**
+     * Implementa la funzionalità di modifica dei dati di un Utente
+     * @param emailUtenteModifica L'email dell'Utente da modificare
+     * @param utente L'Utente da modificare
+     * @throws RuntimeException Se l'aggiornamento non è andato a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doUpdate(String emailUtenteModifica, Utente utente){
 
         try(Connection connection = ConPool.getConnection()){
@@ -235,6 +278,11 @@ public class AutenticazioneDAO {
         }
     }
 
+    /**
+     * Implementa la funzionalità di modifica del tipo Utente
+     * @param email L'email dell'utente del quale modificare il tipo
+     * @param tipo Il tipo Utente (passeggero/guidatore)
+     */
     public void doUpdateTipoUtente(String email, String tipo){
 
         try(Connection connection = ConPool.getConnection()){
