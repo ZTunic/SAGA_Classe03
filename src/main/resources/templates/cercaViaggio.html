@@ -62,34 +62,32 @@
 
 
 <div class="table-responsive overflow-hidden" style="margin-top: 5%; min-height: 300px; width: 100%">
-    <form action="/cerca-viaggio" method="post">
+    <form action="/cerca-viaggio" th:onsubmit="return validaRicercaViaggio()" method="post">
         <div class="center">
-        <div class="row">
-            <div class="col-md-4">
-                <label>Destinazione</label>
-                <select required class="form-select" aria-label="Destinazioni" name="destinazione">
-                    <option selected>Scegli la tua destinazione</option>
-                    <option value="Angri">Angri</option>
-                    <option value="Scafati">Scafati</option>
-                    <option value="Pompei">Pompei</option>
-                </select>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Destinazione</label>
+                    <select id="destinazione" required class="form-select" aria-label="Destinazioni" name="destinazione">
+                        <option selected value="">Scegli la tua destinazione</option>
+                        <option value="Angri">Angri</option>
+                        <option value="Scafati">Scafati</option>
+                        <option value="Pompei">Pompei</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label>Data</label>
+                    <input id="dataOra" required name="dataOraPartenza" type="datetime-local" class="form-control" placeholder="Data" aria-label="Data">
+                </div>
+                <div class="col-md-4">
+                    <label>Soglia prezzo</label>
+                    <input id="prezzo" type="text" name="prezzo" class="form-control" placeholder="€ Prezzo" aria-label="Prezzo">
+                </div>
             </div>
-            <div class="col-md-4">
-                <label>Data</label>
-                <input required name="dataOraPartenza" type="datetime-local" class="form-control" placeholder="Data" aria-label="Data">
-            </div>
-            <div class="col-md-4">
-                <label>Soglia prezzo</label>
-                <input type="text" name="prezzo" class="form-control" placeholder="€ Prezzo" aria-label="Prezzo">
-            </div>
-        </div>
 
-        <button style="margin-top: 2%" type="submit" class="btn btn-primary cvButton">Cerca</button>
-    </div>
+            <button style="margin-top: 2%" type="submit" class="btn btn-primary cvButton">Cerca</button>
+        </div>
     </form>
 </div>
-
-
 
 <footer style="clear: both; position: absolute; height: 80px;" class="center">
     <div style="margin-top: 1%; margin-bottom: 1%;">
@@ -117,6 +115,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/regex.js"></script>
 
 </body>
+</html>
 </html>

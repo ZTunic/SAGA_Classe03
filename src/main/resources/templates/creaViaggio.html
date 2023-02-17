@@ -62,40 +62,38 @@
 
 
 <div class="container-fluid" style="min-height: 400px;">
-    <form action="/crea-viaggio" method="post">
+    <form action="/crea-viaggio" th:onsubmit="return validaCreazioneViaggio()" method="post">
         <div class="center">
-        <div class="row">
-            <div class="col-md-6">
-                <label>Destinazione</label>
-                <select name="destinazione" class="form-select" aria-label="Destinazioni" required>
-                    <option selected>Scegli la tua destinazione</option>
-                    <option value="Angri">Angri</option>
-                    <option value="Scafati">Scafati</option>
-                    <option value="Pompei">Pompei</option>
-                </select>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Destinazione</label>
+                    <select id="destinazione" name="destinazione" class="form-select" aria-label="Destinazioni" required>
+                        <option selected value="">Scegli la tua destinazione</option>
+                        <option value="Angri">Angri</option>
+                        <option value="Scafati">Scafati</option>
+                        <option value="Pompei">Pompei</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Data</label>
+                    <input id="dataOra" name="dataOraPartenza" type="datetime-local" class="form-control" placeholder="Data" aria-label="Data" required>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label>Data</label>
-                <input name="dataOraPartenza" type="datetime-local" class="form-control" placeholder="Data" aria-label="Data" required>
+            <div class="row" style="margin-top: 2%">
+                <div class="col-md-6">
+                    <label>Prezzo</label>
+                    <input id="prezzo" name="prezzo"type="text" class="form-control" placeholder="(es.: 12.50)" aria-label="Prezzo" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Posti disponibili</label>
+                    <input id="posti" name="posti" min="1" th:max="${session.utenteLoggato['getVeicolo']['getPostiDisponibili']}" type="number" class="form-control" placeholder="Posti disponibili" aria-label="PostiDisponibili" required>
+                </div>
             </div>
-        </div>
-        <div class="row" style="margin-top: 2%">
-            <div class="col-md-6">
-                <label>Prezzo</label>
-                <input name="prezzo"type="text" class="form-control" placeholder="(es.: 12.50)" aria-label="Prezzo" required>
-            </div>
-            <div class="col-md-6">
-                <label>Posti disponibili</label>
-                <input name="posti" min="1" th:max="${session.utenteLoggato['getVeicolo']['getPostiDisponibili']}" type="number" class="form-control" placeholder="Posti disponibili" aria-label="PostiDisponibili" required>
-            </div>
-        </div>
 
-        <button style="margin-top: 2%" type="submit" class="btn btn-primary cvButton">CREA</button>
-    </div>
+            <button style="margin-top: 2%" type="submit" class="btn btn-primary cvButton">CREA</button>
+        </div>
     </form>
 </div>
-
-
 
 <footer style="clear: both; position: absolute; height: 80px;" class="center">
     <div style="margin-top: 1%; margin-bottom: 1%;">
@@ -123,6 +121,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/regex.js"></script>
 
 </body>
 </html>
