@@ -44,26 +44,58 @@
 
 <hr class="spacer">
 
-<form action="/registrazione-utente" method="post" style="display: inline-block;">
+<form action="/registrazione-utente" th:onsubmit="return validaRegistrazione('RegistrazioneErrore3Modal')" method="post" style="display: inline-block;">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Nome" aria-label="Nome" name="nome">
-        <input type="text" class="form-control" placeholder="Cognome" aria-label="Cognome" name="cognome">
+        <input id="nome" type="text" class="form-control" placeholder="Nome" aria-label="Nome" name="nome" required>
+        <input id="cognome" type="text" class="form-control" placeholder="Cognome" aria-label="Cognome" name="cognome" required>
     </div>
 
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon3">+39</span>
-        <input type="text" class="form-control" placeholder="Numero di telefono" id="basic-url" name="telefono">
+        <input type="text" class="form-control" placeholder="Numero di telefono" id="basic-url" name="telefono" required>
     </div>
 
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="E-mail" aria-label="e-mail" name="email">
-        <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password">
+        <input id="email" type="email" class="form-control" placeholder="E-mail" aria-label="e-mail" name="email" required>
+        <input id="password" type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" required>
     </div>
 
     <div class="container-fluid">
         <div style="text-align:center">
             <button class="btn btn-primary" id="registrazione-text" type="submit">REGISTRATI</button>
             <div id="emailHelp" class="form-text">Sei già registrato? <a href="/login-page">Login</a></div>
+        </div>
+    </div>
+
+    <!-- Modal dati inviati non validi -->
+    <div class="modal fade" id="RegistrazioneErrore3Modal" tabindex="-1" aria-labelledby="RegistrazioneErrore3ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">UniPass</h1>
+                    <button onclick="chiudiModal('RegistrazioneErrore3Modal')" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">I dati inviati non sono validi</div>
+                <div class="modal-footer">
+                    <button onclick="chiudiModal('RegistrazioneErrore3Modal')" type="button" class="btn btn-primary">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Errore registrazione -->
+    <div th:if="${error}" class="modal fade show" id="signInError" tabindex="-1" aria-labelledby="RegistrazioneErrore3ModalLabel" style="display: block;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel2">UniPass</h1>
+                    <button onclick="chiudiModal('signInError')" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Errore nella fase di registrazione.</div>
+                <div class="modal-footer">
+                    <button onclick="chiudiModal('signInError')" type="button" class="btn btn-primary">Chiudi</button>
+                </div>
+            </div>
         </div>
     </div>
     <hr class="spacer">
@@ -97,6 +129,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/regex.js"></script>
 
 </body>
 </html>

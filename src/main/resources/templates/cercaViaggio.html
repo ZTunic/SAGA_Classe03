@@ -48,7 +48,6 @@
                 </li>
                 <li class="nav-item">
                     <a th:if="${session.utenteLoggato['getVeicolo'] != null}" href="/crea-viaggio-page" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
-                    <a th:if="${session.utenteLoggato['getVeicolo'] == null}" href="/pagina-utente-passeggero" style="color:#ffffff" class="nav-link testo_nav"><i class="fa fa-car"></i><span> CREA VIAGGIO</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="/cerca-viaggio-page" style="color:#ffffff" class="nav-link testo_nav" ><i class="fa fa-search"></i><span> CERCA VIAGGI</span></a>
@@ -62,7 +61,7 @@
 
 
 <div class="table-responsive overflow-hidden" style="margin-top: 5%; min-height: 300px; width: 100%">
-    <form action="/cerca-viaggio" th:onsubmit="return validaRicercaViaggio()" method="post">
+    <form action="/cerca-viaggio" th:onsubmit="return validaRicercaViaggio('CercaViaggioErrore2Modal')" method="post">
         <div class="center">
             <div class="row">
                 <div class="col-md-4">
@@ -84,7 +83,25 @@
                 </div>
             </div>
 
-            <button style="margin-top: 2%" type="submit" class="btn btn-primary cvButton">Cerca</button>
+            <button style="margin-top: 2%" type="submit" class="btn btn-primary cvButton"data-bs-toggle="modal" data-bs-target="#CercaViaggioErrore1ModalLabel">Cerca</button>
+
+            <!-- Modal dati inviati non validi -->
+            <div class="modal fade" id="CercaViaggioErrore2Modal" tabindex="-1" aria-labelledby="CercaViaggioErrore2ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">UniPass</h1>
+                            <button onclick="chiudiModal('CercaViaggioErrore2Modal')" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">I dati inviati non sono validi</div>
+                        <div class="modal-footer">
+                            <button onclick="chiudiModal('CercaViaggioErrore2Modal')" type="button" class="btn btn-primary">Chiudi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </form>
 </div>

@@ -1,5 +1,13 @@
+//chiudi modal
+function chiudiModal(id){
+    let modalClose = document.getElementById(id);
+    modalClose.style.display = "none";
+}
+
 // controlli generali sui campi dell'utente
-function controllaDatiUtente(nome, cognome, telefono, email, password){
+function controllaDatiUtente(nome, cognome, telefono, email, password, id){
+    let modalID = document.getElementById(id);
+
     let rexNomeCognome = /^[A-zÀ-ù ‘-]{1,35}$/;
     let rexPassword = /^[A-z0-9._//%+-]{8,32}$/;
     let rexTelefono = /^[0-9]{10}$/;
@@ -8,40 +16,55 @@ function controllaDatiUtente(nome, cognome, telefono, email, password){
     if(!rexEmail.test(email.value)){
         email.placeholder = "Formato errato";
         email.value = "";
-        email.focus()
-        console.log("Email");
+        email.focus();
+        modalID.classList.add("show");
+        modalID.style.display = "block";
+        modalID.setAttribute('aria-modal', 'true');
+        modalID.setAttribute('role', 'dialog');
         return false;
     }
 
     if(!(rexPassword.test(password.value))){
         password.placeholder = "Formato errato";
         password.value = "";
-        password.focus()
-        console.log("Password");
+        password.focus();
+        modalID.classList.add("show");
+        modalID.style.display = "block";
+        modalID.setAttribute('aria-modal', 'true');
+        modalID.setAttribute('role', 'dialog');
         return false;
     }
 
     if(!(rexNomeCognome.test(cognome.value))){
         cognome.placeholder = "Formato errato";
         cognome.value = "";
-        cognome.focus()
-        console.log("Cognome");
+        cognome.focus();
+        modalID.classList.add("show");
+        modalID.style.display = "block";
+        modalID.setAttribute('aria-modal', 'true');
+        modalID.setAttribute('role', 'dialog');
         return false;
     }
 
     if(!(rexNomeCognome.test(nome.value))){
         nome.placeholder = "Formato errato";
         nome.value = "";
-        nome.focus()
-        console.log("Nome");
+        nome.focus();
+        modalID.classList.add("show");
+        modalID.style.display = "block";
+        modalID.setAttribute('aria-modal', 'true');
+        modalID.setAttribute('role', 'dialog');
         return false;
     }
 
     if(!(rexTelefono.test(telefono.value))){
         telefono.placeholder = "Formato errato";
         telefono.value = "";
-        telefono.focus()
-        console.log("Telefono");
+        telefono.focus();
+        modalID.classList.add("show");
+        modalID.style.display = "block";
+        modalID.setAttribute('aria-modal', 'true');
+        modalID.setAttribute('role', 'dialog');
         return false;
     }
 
@@ -50,29 +73,28 @@ function controllaDatiUtente(nome, cognome, telefono, email, password){
 }
 
 // Valida funzione registrazione utente
-function validaRegistrazione(){
+function validaRegistrazione(id){
     let nome = document.getElementById("nome");
     let cognome = document.getElementById("cognome");
     let telefono = document.getElementById("basic-url");
     let email = document.getElementById("email");
     let password = document.getElementById("password");
 
-    return controllaDatiUtente(nome, cognome, telefono, email, password);
+    return controllaDatiUtente(nome, cognome, telefono, email, password, id);
 }
 
 //Valida funzione aggiornamento utente
-function validaAggiornamento(){
+function validaAggiornamento(id){
     let nome = document.getElementById("nomeID");
     let cognome = document.getElementById("cognomeID");
     let telefono = document.getElementById("telefonoID");
     let email = document.getElementById("emailID");
     let password = document.getElementById("PasswordID");
 
-    return controllaDatiUtente(nome, cognome, telefono, email, password);
+    return controllaDatiUtente(nome, cognome, telefono, email, password, id);
 }
 
 //Controlli generali dati veicolo
-
 function controllaDatiVeicolo(targa, marca, modello, colore, posti){
 
     let rexColoreModelloMarca = /^[A-zÀ-ù0-9 ‘-]{1,100}$/;
@@ -137,7 +159,9 @@ function validaDatiVeicolo(){
 
 
 //Controllo generale creazione e ricerca
-function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiDaSottrarre){
+function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiDaSottrarre, modalID){
+    let modal = document.getElementById(modalID);
+
     let rexPrezzo = /^(?:[0-9]|[1-4][0-9]|50)(?:\.\d+)?$/;
     let rexPosti = /^-?\d+$/;
     let rexDestinazione = /^[A-zÀ-ù '-]{1,100}$/;
@@ -145,6 +169,10 @@ function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiD
     if(!(rexDestinazione.test(destinazione.value))){
         destinazione.placeholder = "Formato errato";
         destinazione.focus();
+        modal.classList.add("show");
+        modal.style.display = "block";
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('role', 'dialog');
         return false;
     }
 
@@ -190,15 +218,12 @@ function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiD
         m = 12;
     }
 
-
     let dataSave = y+"-"+m+"-"+d;
 
     let dataDaVerificare = new Date(dataSave);
     let dataAttuale = new Date();
 
     dataDaVerificare.setHours(h, mm);
-
-    console.log(dataDaVerificare.toLocaleString())
 
     if(dataAttuale > dataDaVerificare){
         let time = dataAttuale.toLocaleDateString();
@@ -214,6 +239,10 @@ function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiD
         dataOra.value = time.substring(5,9) + "-" + month + "-" + day + "T" + dataAttuale.toLocaleTimeString().substring(0,5);
 
         dataOra.focus();
+        modal.classList.add("show");
+        modal.style.display = "block";
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('role', 'dialog');
         return false;
     }
 
@@ -221,6 +250,10 @@ function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiD
         prezzo.placeholder = "Formato errato";
         prezzo.value = "";
         prezzo.focus();
+        modal.classList.add("show");
+        modal.style.display = "block";
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('role', 'dialog');
         return false;
     }
 
@@ -228,6 +261,10 @@ function controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, minutiD
         posti.placeholder = "Formato errato";
         posti.value = "";
         posti.focus();
+        modal.classList.add("show");
+        modal.style.display = "block";
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('role', 'dialog');
         return false;
     }
     return true;
@@ -238,9 +275,8 @@ function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
-
 //Valida funzione ricerca viaggio
-function validaRicercaViaggio(){
+function validaRicercaViaggio(id){
     let destinazione = document.getElementById("destinazione");
     let dataOra = document.getElementById("dataOra");
     let prezzo = document.getElementById("prezzo");
@@ -248,15 +284,15 @@ function validaRicercaViaggio(){
     if(prezzo.value.length === 0)
         prezzo.value = 50;
 
-    return controlloCreazioneRicerca(destinazione, dataOra, 1, prezzo, 40);
+    return controlloCreazioneRicerca(destinazione, dataOra, 1, prezzo, 40, id);
 }
 
 //Valida funzione creazione viaggio
-function validaCreazioneViaggio(){
+function validaCreazioneViaggio(id){
     let destinazione = document.getElementById("destinazione")
     let dataOra = document.getElementById("dataOra");
     let posti = document.getElementById("posti")
     let prezzo = document.getElementById("prezzo");
 
-    return controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, 60);
+    return controlloCreazioneRicerca(destinazione, dataOra, posti, prezzo, 60, id);
 }
