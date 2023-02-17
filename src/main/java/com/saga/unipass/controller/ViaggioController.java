@@ -15,15 +15,35 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Implementa il controller relativo al sottosistema Viaggio
+ */
 @Controller
 @SessionAttributes({"utenteLoggato", "viaggio", "viaggiRicerca"})
 public class ViaggioController {
+    /**
+     * Il service relativo al viaggio
+     */
     private ViaggioService viaggioService;
 
+    /**
+     * Il costruttore della classe
+     */
     public ViaggioController(){
         viaggioService = new ViaggioService();
     }
 
+    /**
+     * Implementa la funzionalità di creazione di un viaggio da parte di un Guidatore
+     * @param destinazione Il luogo di destinazione del Viaggio
+     * @param dataOraPartenza La data e l'ora di partenza del Viaggio
+     * @param posti Il numero di posti consentito in auto
+     * @param prezzo Il prezzo del Viaggio
+     * @param model Utilizzato per gestire la sessione
+     * @return storico-viaggi La pagina in cui è contenuto lo storico viaggi di un Utente
+     * @return crea-viaggio-page Si è verificato un errore e viene visualizzata la
+     * pagine di creazione viaggio per tentare di nuovo la creazione
+     */
     @RequestMapping("/crea-viaggio")
     public String creaViaggio(@RequestParam(name = "destinazione") String destinazione,
                               @RequestParam(name = "dataOraPartenza") String dataOraPartenza,
@@ -53,12 +73,18 @@ public class ViaggioController {
 
             model.addAttribute("utenteLoggato", guidatore);
 
-            return "redirect:/dettagli-viaggio?idViaggio=" + viaggioCreato.getIdViaggio();
+            return "redirect:/storico-viaggi";
         }
 
         return "redirect:/crea-viaggio-page";
     }
 
+    /**
+     * Implementa la funzionalità di eliminazione di un Viaggio da parte di un Guidatore
+     * @param idViaggio l'id del Viaggio
+     * @param model Utilizzato per gestire la sessione
+     * @return storico-viaggi La pagina dello storico dei viaggi del Guidatore
+     */
     @RequestMapping("/elimina-viaggio")
     public String eliminaViaggio(@RequestParam(name = "idViaggio") String idViaggio, Model model){
         Viaggio viaggioEliminato = viaggioService.eliminaViaggio(Integer.parseInt(idViaggio));
@@ -77,6 +103,16 @@ public class ViaggioController {
         return "redirect:/storico-viaggi";
     }
 
+    /**
+     * Implementa la funzionalità di ricerca di un Viaggio
+     * @param destinazione Il luogo di destinazione del Viaggio
+     * @param dataOraPartenza La data e l'ora dopo la quale sono presenti Viaggi disponibili
+     * @param prezzo Il prezzo massimo consentito
+     * @param model Utilizzato per gestire la sessione
+     * @return risultatiRicerca.html La pagina relativa ai risultati della ricerca
+     * @return cerca-viaggio-page Si è verificato un errore e viene visualizzata la
+     * pagine di ricerca viaggi per tentare di nuovo la ricerca
+     */
     @RequestMapping("/cerca-viaggio")
     public String cercaViaggio(@RequestParam(name = "destinazione") String destinazione,
                                @RequestParam(name = "dataOraPartenza") String dataOraPartenza,
@@ -108,6 +144,13 @@ public class ViaggioController {
         return "redirect:/cerca-viaggio-page";
     }
 
+    /**
+     * Implementa la funzionalità di esclusione di un Passeggero da parte di un Guidatore
+     * @param idViaggio L'id del Viaggio
+     * @param emailPasseggero l'e-mail del Passeggero da escludere
+     * @param model Utilizzato per gestire la sessione
+     * @return dettagli-viaggio La pagina dei dettagli del Viaggio creato dal Guidatore
+     */
     @RequestMapping("/escludi-passeggero")
     public String escludiPasseggero(@RequestParam(name = "idViaggio") String idViaggio,
                                     @RequestParam(name = "emailPasseggero") String emailPasseggero, Model model){
@@ -135,6 +178,12 @@ public class ViaggioController {
         return "redirect:/dettagli-viaggio?idViaggio="+idViaggio;
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina dettagliViaggio
+     * @param idViaggio L'id del Viaggio
+     * @param model Utilizzato per gestire la sessione
+     * @return dettagliViaggio.html La pagina relativa ai dettagli del Viaggio
+     */
     @RequestMapping("/dettagli-viaggio")
     public String dettagliViaggio(@RequestParam(name = "idViaggio") String idViaggio, Model model){
 
@@ -143,21 +192,42 @@ public class ViaggioController {
         return "dettagliViaggio.html";
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina cercaViaggio
+     * @return cercaViaggio.html La pagina in cui è possibile ricercare un Viaggio
+     */
     @RequestMapping("/cerca-viaggio-page")
     public String cercaViaggioPage(){
         return "cercaViaggio.html";
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina creaViaggio
+     * @return cercaViaggio.html La pagina in cui è possibile creare un Viaggio
+     */
     @RequestMapping("/crea-viaggio-page")
     public String creaViaggioPage(){
         return "creaViaggio.html";
     }
 
-    //controlla se l'anno è bisestile
+    /**
+     * Verifica se l'anno è bisestile
+     * @param anno L'anno da verificare
+     * @return boolean Ritorna true/false a seconda del fatto che l'anno sia bisestile o meno
+     */
     private boolean isLeapYear(int anno) {
         return (anno % 4 == 0 && anno % 100 != 0) || anno % 400 == 0;
     }
 
+    /**
+     * Implementa il controllo della validità dei dati per la creazione di un viaggio
+     * @param destinazione Il luogo di destinazione del Viaggio
+     * @param dataOraPartenza La data e l'ora di partenza del Viaggio
+     * @param posti Il numero di posti consentito in auto
+     * @param prezzo Il prezzo del Viaggio
+     * @return ArrayList<String> una lista di stringhe che mantiene le informazioni
+     * dei valori che non rispettano il loro formato
+     */
     public ArrayList<String> controlloValoriCreazioneViaggio(String destinazione, String dataOraPartenza, String posti,
                                                              String prezzo, Veicolo veicoloViaggio){
         ArrayList<String> valoriNonValidi = new ArrayList<>();
@@ -237,6 +307,14 @@ public class ViaggioController {
         return valoriNonValidi;
     }
 
+    /**
+     * Implementa il controllo della validità dei dati per la creazione di un viaggio
+     * @param destinazione Il luogo di destinazione del Viaggio
+     * @param dataOraPartenza La data e l'ora di partenza del Viaggio
+     * @param prezzo Il prezzo del Viaggio
+     * @return ArrayList<String> una lista di stringhe che mantiene le informazioni
+     * dei valori che non rispettano il loro formato
+     */
     public ArrayList<String> controlloValoriRicercaViaggio(String destinazione, String dataOraPartenza, String prezzo){
         ArrayList<String> valoriNonValidi = new ArrayList<>();
 

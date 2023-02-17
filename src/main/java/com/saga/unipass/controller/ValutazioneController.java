@@ -12,16 +12,31 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 
+/**
+ * Implementa il controller relativo al sottosistema Valutazione
+ */
 @Controller
 @SessionAttributes("utenteLoggato")
 public class ValutazioneController {
+    /**
+     * Il service relativo alla valutazione
+     */
     ValutazioneService valutazioneService;
 
-
+    /**
+     * Il costruttore della classe
+     */
     public ValutazioneController(){
         valutazioneService = new ValutazioneService();
     }
 
+    /**
+     * Implementa la funzionalità di valutazione di un Guidatore da parte di un Passeggero
+     * @param valutazione La valutazione inserita dal Passeggero
+     * @param idViaggio L'id del Viaggio
+     * @param model Utilizzato per gestire la sessione
+     * @return dettagli-viaggio La pagina relativa ai dettagli del Viaggio
+     */
     @RequestMapping("/valuta-guidatore")
     public String valutaGuidatore(@RequestParam(name = "valutazione") String valutazione,
                                   @RequestParam(name = "idViaggio") String idViaggio, Model model){
@@ -53,7 +68,14 @@ public class ValutazioneController {
         return "redirect:/dettagli-viaggio?idViaggio="+Integer.parseInt(idViaggio);
     }
 
-
+    /**
+     * Implementa la funzionelità di valutazione di un Passeggero da parte di un Guidatore
+     * @param valutazione La valutazione inserita dal Guidatore
+     * @param idViaggio L'id del Viaggio
+     * @param email L'email del Passeggero
+     * @param model Utilizzato per gestire la sessione
+     * @return dettagli-viaggio La pagina relativa ai dettagli del Viaggio
+     */
     @RequestMapping("/valuta-passeggero")
     public String valutaPasseggero(@RequestParam(name = "valutazione") String valutazione,
                                    @RequestParam(name = "idViaggio") String idViaggio,

@@ -11,41 +11,74 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Implementa il controller relativo al sottosistema Autenticazione
+ */
 @Controller
 @SessionAttributes("utenteLoggato")
 public class AutenticazioneController {
     private AutenticazioneService autenticazioneService;
 
+    /**
+     * Il service relativo all'autenticazione
+     */
     public AutenticazioneController(){
         autenticazioneService = new AutenticazioneService();
     }
 
+    /**
+     * Il costruttore della classe
+     */
     @RequestMapping("/login-page")
     public String loginUtente(Model model) {
         model.addAttribute("utenteLoggato", null);
         return "login.html";
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina storicoViaggi
+     * @return storicoViaggi.html La pagina da visualizzare
+     */
     @RequestMapping("/storico-viaggi")
     public String visualizzaStorico(){
         return "storicoViaggi.html";
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina profiloPasseggero
+     * @return profiloPasseggero.html La pagina da visualizzare
+     */
     @RequestMapping("/pagina-utente-passeggero")
     public String paginaProfiloPasseggero(){
         return "profiloPasseggero.html";
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina profiloGuidatore
+     * @return profiloGuidatore.html La pagina da visualizzare
+     */
     @RequestMapping("/pagina-utente-guidatore")
     public String paginaProfiloGuidatore(){
         return "profiloGuidatore.html";
     }
 
+    /**
+     * Implementa la funzionalità di reindirizzamento alla pagina home
+     * @return home.html La pagina da visualizzare
+     */
     @RequestMapping("/home")
     public String home(){
         return "home.html";
     }
 
+    /**
+     * Implementa la funzionalità di login di un Utente
+     * @param email l'e-mail inserita dall'Utente
+     * @param password la password inserita dall'Utente
+     * @param model Utilizzato per gestire la sessione
+     * @return login-html se il login non va a buon fine
+     * home Se il login va a buon fine
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam String email, @RequestParam String password, Model model){
 
@@ -60,12 +93,28 @@ public class AutenticazioneController {
         return "redirect:/home";
     }
 
+    /**
+     * Implementa la funzionalità di logout
+     * @param sessionStatus Utilizzato per gestire la sessione
+     * @return home Ritorna alla pagina home
+     */
     @RequestMapping("/logout")
     public String logout(SessionStatus sessionStatus){
         sessionStatus.setComplete();
         return "redirect:/";
     }
 
+    /**
+     * Implementa la funzionalità di modifica delle informazioni del profilo
+     * @param nome Il nome dell'utente
+     * @param email L'e-mail dell'utente
+     * @param telefono Il numero di telefono dell'utente
+     * @param cognome Il cognome dell'utente
+     * @param password La password dell'utente
+     * @param model Utilizzato per gestire la sessione
+     * @return pagina-utente-passeggero Se l'utente è un passeggero
+     * pagina-utente-guidatore Se l'utente è un guidatore
+     */
     @RequestMapping("/modifica")
     public String modificaProfilo(@RequestParam(name = "nome") String nome, @RequestParam(name = "email") String email,
                                   @RequestParam(name = "telefono") String telefono, @RequestParam(name = "cognome") String cognome,
@@ -100,10 +149,26 @@ public class AutenticazioneController {
         return "redirect:/pagina-utente-guidatore";
     }
 
+    /**
+     * Implementa la funzionalità di modifica del tipo utente (passeggero/guidatore)
+     * @param email L'e-mail dell'utente
+     * @param tipo Il tipo utente
+     */
     public void modificaTipoUtente(String email, String tipo){
         autenticazioneService.modificaTipoUtente(email, tipo);
     }
 
+    /**
+     * Implementa il controllo della validità dei valori
+     * per l'aggiornamento dei dati dell'utente
+     * @param nome Il nuovo nome dell'utente
+     * @param email La nuova e-mail dell'utente
+     * @param telefono Il nuovo numero di telefono dell'utente
+     * @param cognome Il nuovo cognome dell'utente
+     * @param password La nuova password dell'utente
+     * @return ArrayList<String> una lista di stringhe che mantiene le informazioni
+     * dei valori che non rispettano il loro formato
+     */
     public ArrayList<String> controlloValori(String email, String password, String nome, String cognome, String telefono){
 
         ArrayList<String> parametriNonValidi =  new ArrayList<>();

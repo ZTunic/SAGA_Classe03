@@ -1,7 +1,6 @@
 package com.saga.unipass.model.dao;
 
 import com.saga.unipass.model.ConPool;
-import com.saga.unipass.model.beans.Viaggio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
