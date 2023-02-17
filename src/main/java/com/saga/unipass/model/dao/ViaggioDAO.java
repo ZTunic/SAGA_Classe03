@@ -9,8 +9,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Implementa il DAO relativo al viaggio
+ */
 public class ViaggioDAO {
 
+    /**
+     * Implementa la funzionalità di salvataggio di un Viaggio nel database
+     * @param viaggio Il Viaggio da salvare
+     * @param dataSave La data e l'ora di partenza del Viaggio
+     * @throws RuntimeException Se l'inserimento non è andato a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doSave(Viaggio viaggio, String dataSave){
 
         try(Connection connection = ConPool.getConnection()){
@@ -39,7 +49,15 @@ public class ViaggioDAO {
 
     }
 
-
+    /**
+     * Implementa la funzionalità di ricerca di un Viaggio in base ai vari parametri
+     * @param destinazione Il luogo di destinazione del Viaggio
+     * @param dataOraPartenza La data e l'ora di partenza del Viaggio
+     * @param prezzo Il prezzo massimo del Viaggio
+     * @param emailPrenotante l'email del Passeggero che vuole prenotarsi
+     * @return viaggi La lista di Viaggi disponibili
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public ArrayList<Viaggio> doSearch(String destinazione, String dataOraPartenza, double prezzo, String emailPrenotante){
 
         ArrayList<Viaggio> viaggi = new ArrayList<>();
@@ -89,7 +107,13 @@ public class ViaggioDAO {
         return viaggi;
     }
 
-
+    /**
+     * Implementa la funzionalità di rimuovere un passeggero da un Viaggio nel database
+     * @param idViaggio L'id del Viaggio
+     * @param passeggero Il Passeggero da rimuovere
+     * @throws RuntimeException Se la cancellazione non è andata a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public void doRemovePasseggero(int idViaggio, Utente passeggero){
         try(Connection connection = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -106,6 +130,12 @@ public class ViaggioDAO {
         }
     }
 
+    /**
+     * Implementa la funzionalità di ricerca di tutti i passeggeri di un Viaggio
+     * @param idViaggio L'id del Viaggio
+     * @return listaPasseggeri La lista dei passeggeri di un Viaggio
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public ArrayList<Utente> doRetrievePasseggeriViaggio(int idViaggio){
         ArrayList<Utente> listaPasseggeri = new ArrayList<>();
 
@@ -131,6 +161,13 @@ public class ViaggioDAO {
         return listaPasseggeri;
     }
 
+    /**
+     * Implementa la funzionalità di ricerca di un Viaggio in base al suo id
+     * @param idViaggio L'id del Viaggio
+     * @return viaggio Se il Viaggio è stato trovato
+     * null Se il Viaggio non è stato trovato
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public Viaggio doRetrieveById(int idViaggio){
         Viaggio viaggio = new Viaggio();
 
@@ -172,6 +209,13 @@ public class ViaggioDAO {
         return viaggio;
     }
 
+    /**
+     * Implementa la funzionalità di rimuovere un Viaggio dal database
+     * @param idViaggio L'id del Viaggio
+     * @return doRetrieve Il Viaggio rimosso
+     * @throws RuntimeException Se la cancellazione non è andata a buon fine
+     * @throws SQLException Se la connessione al database non è andata a buon fine
+     */
     public Viaggio doRemove(int idViaggio){
 
         Viaggio doRetrieve = doRetrieveById(idViaggio);
