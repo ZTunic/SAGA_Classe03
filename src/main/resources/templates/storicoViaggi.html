@@ -86,7 +86,7 @@
             <tr th:each="v : ${viaggio}">
                 <form action="dettagli-viaggio" method="get">
                     <th scope="row" th:text="${v['getIdViaggio']}"></th>
-                    <td th:text="${v['getDataOraPartenza']}" ></td>
+                    <td th:text="${#dates.format(v['getDataOraPartenza'], 'dd-MM-yyyy HH:mm')}"></td>
                     <td th:text="${v['getDestinazione']}"></td>
                     <td th:text="${v['getPrezzo']}"></td>
                     <td th:text="${v['getListaPasseggeri'].size}"></td>
@@ -108,8 +108,6 @@
         <h2 th:if="${viaggio.size == 0}"> Non hai ancora effettuato un viaggio</h2>
     </div>
 </div>
-
-
 
 <footer style="clear: both; position: absolute; height: 80px;" class="center">
     <div style="margin-top: 1%; margin-bottom: 1%;">

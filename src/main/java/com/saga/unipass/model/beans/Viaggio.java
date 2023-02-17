@@ -1,6 +1,6 @@
 package com.saga.unipass.model.beans;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 

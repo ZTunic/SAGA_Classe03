@@ -76,18 +76,18 @@
       </thead>
       <tbody>
       <tr th:each="v : ${viaggiCercati}">
-          <th scope="row" th:text="${v['getIdViaggio']}"></th>
-          <td th:text="${v['getDataOraPartenza']}" ></td>
-          <td th:text="${v['getDestinazione']}"></td>
-          <td th:text="${v['getPrezzo']}"></td>
-          <td th:text="${v['getGuidatore']['getEmail']}"></td>
-          <td th:if="${v['getGuidatore']['getNumeroValutazioniPasseggero'] == 0}">0</td>
-          <td th:if="${v['getGuidatore']['getNumeroValutazioniPasseggero'] > 0}" th:text="${v['getGuidatore']['getSommaValutazioniPasseggero'] / v['getGuidatore']['getNumeroValutazioniPasseggero']}">2</td>
+        <th scope="row" th:text="${v['getIdViaggio']}"></th>
+        <td th:text="${#dates.format(v['getDataOraPartenza'], 'dd-MM-yyyy HH:mm')}"></td>
+        <td th:text="${v['getDestinazione']}"></td>
+        <td th:text="${v['getPrezzo']}"></td>
+        <td th:text="${v['getGuidatore']['getEmail']}"></td>
+        <td th:if="${v['getGuidatore']['getNumeroValutazioniPasseggero'] == 0}">0</td>
+        <td th:if="${v['getGuidatore']['getNumeroValutazioniPasseggero'] > 0}" th:text="${v['getGuidatore']['getSommaValutazioniPasseggero'] / v['getGuidatore']['getNumeroValutazioniPasseggero']}">2</td>
         <td>
-            <form action="/prenota-viaggio" method="post">
-              <input type="hidden" name="idViaggio" th:value="${v['getIdViaggio']}">
-              <button class="btn btn-primary btn-storico" type="submit">PRENOTA</button>
-            </form>
+          <form action="/prenota-viaggio" method="post">
+            <input type="hidden" name="idViaggio" th:value="${v['getIdViaggio']}">
+            <button class="btn btn-primary btn-storico" type="submit">PRENOTA</button>
+          </form>
         </td>
       </tr>
       </tbody>

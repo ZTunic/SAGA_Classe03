@@ -66,7 +66,12 @@ public class ViaggioDAO {
 
                 viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
-                viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
+
+                String dataOra = rs.getString("dataOraPartenza");
+                dataOra = dataOra.replace("-", "/");
+                System.out.println(dataOra);
+                viaggio.setDataOraPartenza(new Date(dataOra));
+
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
@@ -142,7 +147,12 @@ public class ViaggioDAO {
             if(rs.next()) {
                 viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
-                viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
+
+                String dataOraPartenza = rs.getString("dataOraPartenza");
+                dataOraPartenza = dataOraPartenza.replace("-", "/");
+                System.out.println(dataOraPartenza);
+                viaggio.setDataOraPartenza(new Date(dataOraPartenza));
+
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
