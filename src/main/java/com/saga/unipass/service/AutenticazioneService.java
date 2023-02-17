@@ -28,30 +28,7 @@ public class AutenticazioneService {
         return true;
     }
 
-    /*
-    public List<Viaggio> visualizzaStorico(String email){
-        List<Viaggio> listaViaggiCreati =
-                autenticazioneDAO.doRetrieveViaggiCreati(email);
-        List<Viaggio> listaViaggiPartecipati =
-                autenticazioneDAO.doRetrieveViaggiPartecipati(email);
-
-        List<Viaggio> listaViaggi = new ArrayList<>();
-
-        if(listaViaggiCreati != null){
-            for(int i=0; i<listaViaggiCreati.size(); i++){
-                Viaggio viaggio = listaViaggiCreati.get(i);
-                listaViaggi.add(viaggio);
-            }
-        }
-
-        if(listaViaggiPartecipati != null){
-            for(int i=0; i<listaViaggiPartecipati.size(); i++){
-                Viaggio viaggio = listaViaggiPartecipati.get(i);
-                listaViaggi.add(viaggio);
-            }
-        }
-
-        return listaViaggi;
+    public void modificaTipoUtente(String email, String tipo){
+        autenticazioneDAO.doUpdateTipoUtente(email, tipo);
     }
-     */
 }

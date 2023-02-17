@@ -69,7 +69,7 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 1%; margin-bottom: 3%;">
-    <form action="/modifica" method="post">
+    <form action="/modifica" th:onsubmit="return validaAggiornamento()" method="post">
         <div class="row">
             <div style="margin-left: 5%;" class="col-md-4">
                 <div class="bz80">
@@ -131,7 +131,7 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 1%; margin-bottom: 3%;">
-    <form action="/modifica-veicolo" method="post">
+    <form action="/modifica-veicolo" th:onsubmit="return validaDatiVeicolo()" method="post">
         <div class="row">
             <div style="margin-left: 5%" class="col-md-4">
                 <div class="bz80">
@@ -190,6 +190,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/modVIs.js"></script>
+<script src="../js/regex.js"></script>
 
 </body>
 </html>

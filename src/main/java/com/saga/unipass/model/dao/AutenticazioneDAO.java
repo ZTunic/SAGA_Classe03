@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AutenticazioneDAO {
 
@@ -146,7 +147,12 @@ public class AutenticazioneDAO {
 
                 viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
-                viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
+
+                String dataOraPartenza = rs.getString("dataOraPartenza");
+                dataOraPartenza = dataOraPartenza.replace("-", "/");
+                System.out.println(dataOraPartenza);
+                viaggio.setDataOraPartenza(new Date(dataOraPartenza));
+
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
@@ -183,7 +189,12 @@ public class AutenticazioneDAO {
 
                 viaggio.setIdViaggio(rs.getInt("idViaggio"));
                 viaggio.setDestinazione(rs.getString("destinazione"));
-                viaggio.setDataOraPartenza(rs.getDate("dataOraPartenza"));
+
+                String dataOraPartenza = rs.getString("dataOraPartenza");
+                dataOraPartenza = dataOraPartenza.replace("-", "/");
+                System.out.println(dataOraPartenza);
+                viaggio.setDataOraPartenza(new Date(dataOraPartenza));
+
                 viaggio.setPosti(rs.getInt("posti"));
                 viaggio.setPrezzo(rs.getDouble("prezzo"));
                 viaggio.setPrenotabile(rs.getBoolean("prenotabile"));
@@ -223,4 +234,25 @@ public class AutenticazioneDAO {
             e.printStackTrace();
         }
     }
+
+    public void doUpdateTipoUtente(String email, String tipo){
+
+        try(Connection connection = ConPool.getConnection()){
+            PreparedStatement ps =
+                    connection.prepareStatement("UPDATE utente " +
+                            "SET tipo = ? " +
+                            "WHERE email = ?;");
+
+            ps.setString(1, tipo);
+            ps.setString(2, email);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("ERROR --> UPDATE utente.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
