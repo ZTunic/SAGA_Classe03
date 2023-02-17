@@ -16,7 +16,7 @@ public class ValutazioneService {
         valutazioneDAO.doValutaGuidatore(guidatore, num, somma);
     }
 
-    public void valutaPasseggero(Utente passeggero, int num, int somma, int idViaggio){
+    public void valutaPasseggero(Utente passeggero, int num, int somma){
 
         valutazioneDAO.doValutaPasseggero(passeggero, num, somma);
     }

@@ -24,12 +24,15 @@ public class VeicoloController {
                                   @RequestParam(name = "postiDisponibili") String posti, Model model){
 
         Utente utente = (Utente) model.getAttribute("utenteLoggato");
+        AutenticazioneController autenticazioneController = new AutenticazioneController();
 
         if(utente != null) {
             utente.setVeicolo(veicoloService.aggiungiVeicolo(targa, marca, modello, colore, Integer.parseInt(posti),
                     (Utente) model.getAttribute("utenteLoggato")));
 
             utente.setTipo("guidatore");
+
+            autenticazioneController.modificaTipoUtente(utente.getEmail(), "guidatore");
 
             model.addAttribute("utenteLoggato", utente);
         }
@@ -58,6 +61,7 @@ public class VeicoloController {
     @RequestMapping("/rimuovi-veicolo")
     public String rimuoviVeicolo(Model model){
         Utente utente = (Utente) model.getAttribute("utenteLoggato");
+        AutenticazioneController autenticazioneController = new AutenticazioneController();
 
         if(utente != null) {
             veicoloService.rimuoviVeicolo(utente.getVeicolo().getTarga());
@@ -65,10 +69,11 @@ public class VeicoloController {
             utente.rimuoviVeicolo();
             utente.setTipo("passeggero");
 
+            autenticazioneController.modificaTipoUtente(utente.getEmail(), "passeggero");
+
             model.addAttribute("utenteLoggato", utente);
 
         }
-
 
         return "redirect:/pagina-utente-passeggero";
     }

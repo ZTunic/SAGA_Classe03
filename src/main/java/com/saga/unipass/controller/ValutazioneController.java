@@ -24,18 +24,18 @@ public class ValutazioneController {
 
     @RequestMapping("/valuta-guidatore")
     public String valutaGuidatore(@RequestParam(name = "valutazione") String valutazione,
-                                @RequestParam(name = "idViaggio") String idViaggio, Model model){
+                                  @RequestParam(name = "idViaggio") String idViaggio, Model model){
 
         int indice = -1;
         Utente utente = (Utente) model.getAttribute("utenteLoggato");
         ArrayList<Viaggio> viaggi = utente.getListaViaggiPartecipati();
 
         for (int i = 0; i < viaggi.size(); i++) {
-                if (viaggi.get(i).getIdViaggio()==Integer.parseInt(idViaggio)){
-                    indice=i;
-                    break;
-                }
+            if (viaggi.get(i).getIdViaggio()==Integer.parseInt(idViaggio)){
+                indice=i;
+                break;
             }
+        }
 
         Viaggio v = viaggi.get(indice);
         Utente guidatore = v.getGuidatore();
@@ -56,8 +56,8 @@ public class ValutazioneController {
 
     @RequestMapping("/valuta-passeggero")
     public String valutaPasseggero(@RequestParam(name = "valutazione") String valutazione,
-                                 @RequestParam(name = "idViaggio") String idViaggio,
-                                 @RequestParam(name = "email") String email, Model model){
+                                   @RequestParam(name = "idViaggio") String idViaggio,
+                                   @RequestParam(name = "email") String email, Model model){
         ArrayList<Viaggio> viaggi;
         Utente utente = (Utente) model.getAttribute("utenteLoggato");
 
@@ -91,7 +91,7 @@ public class ValutazioneController {
 
         model.addAttribute("utenteLoggato", utente);
 
-        valutazioneService.valutaPasseggero(passeggero, num, somma, Integer.parseInt(idViaggio));
+        valutazioneService.valutaPasseggero(passeggero, num, somma);
 
         return "redirect:/dettagli-viaggio?idViaggio="+Integer.parseInt(idViaggio);
     }
