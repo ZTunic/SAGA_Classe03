@@ -14,11 +14,14 @@ public class RegistrazioneService {
     }
 
     public Utente registrazioneUtente(String email, String password, String nome, String cognome, String telefono){
-        Utente utente = new Utente(email, password, nome, cognome, telefono);
 
-        autenticazioneDAO.doSave(utente);
+        if(autenticazioneDAO.doRetrieveByEmail(email) == null) {
+            Utente utente = new Utente(email, password, nome, cognome, telefono);
+            autenticazioneDAO.doSave(utente);
+            return utente;
+        }
 
-        return utente;
+        return null;
     }
 
 }
