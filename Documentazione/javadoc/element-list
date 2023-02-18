@@ -1,0 +1,16 @@
+com.saga.unipass
+com.saga.unipass.autenticazione.controller
+com.saga.unipass.autenticazione.service
+com.saga.unipass.dao
+com.saga.unipass.model
+com.saga.unipass.model.beans
+com.saga.unipass.prenotazione.controller
+com.saga.unipass.prenotazione.service
+com.saga.unipass.registrazione.controller
+com.saga.unipass.registrazione.service
+com.saga.unipass.valutazione.controller
+com.saga.unipass.valutazione.service
+com.saga.unipass.veicolo.controller
+com.saga.unipass.veicolo.service
+com.saga.unipass.viaggio.controller
+com.saga.unipass.viaggio.service
